@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>👨‍👩‍👧‍👦 新疆6天5晚亲子游 | 成都→塔城→伊宁→成都</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: -apple-system, 'Microsoft YaHei', sans-serif; background:#0f172a; color:#e2e8f0; }
+  .header { background:linear-gradient(135deg, #1e3a5f, #0ea5e9); padding:30px 20px; text-align:center; }
+  .header h1 { font-size:28px; color:#fff; margin-bottom:8px; }
+  .header .subtitle { color:#bae6fd; font-size:15px; }
+  
+  /* 亲子提示横幅 */
+  .kid-banner { background:linear-gradient(135deg, #f59e0b, #ec4899); padding:14px 20px; text-align:center; border-radius:12px; margin-bottom:24px; }
+  .kid-banner span { color:#fff; font-size:15px; font-weight:600; }
+  
+  .container { max-width:1200px; margin:0 auto; padding:20px; }
+
+  /* 路线地图 */
+  .map-section { background:#1e293b; border-radius:16px; overflow:hidden; margin-bottom:24px; box-shadow:0 4px 24px rgba(0,0,0,.4); }
+  .map-header { background:#334155; padding:14px 20px; display:flex; justify-content:space-between; align-items:center; }
+  .map-header h2 { font-size:18px; color:#f1f5f9; display:flex; align-items:center; gap:8px; }
+  .map-header .badge { background:#22c55e; color:#fff; font-size:11px; padding:3px 10px; border-radius:12px; }
+  #mapCanvas { width:100%; height:480px; cursor:grab; }
+  #mapCanvas:active { cursor:grabbing; }
+  
+  /* 统计卡片 - 5列 */
+  .stats { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:24px; }
+  .stat-card { background:#1e293b; border-radius:12px; padding:14px 10px; text-align:center; border:1px solid #334155; }
+  .stat-card .icon { font-size:26px; margin-bottom:4px; }
+  .stat-card .num { font-size:20px; font-weight:700; color:#38bdf8; }
+  .stat-card .label { font-size:11px; color:#94a3b8; margin-top:2px; line-height:1.3; }
+
+  /* 每日行程 */
+  .day-section { background:#1e293b; border-radius:16px; margin-bottom:20px; overflow:hidden; border:1px solid #334155; }
+  .day-header { display:flex; align-items:center; gap:12px; padding:16px 20px; border-bottom:1px solid #334155; flex-wrap:wrap; }
+  .day-num { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:18px; color:#fff; flex-shrink:0; }
+  .date-badge { background:#334155; font-size:12px; padding:4px 10px; border-radius:10px; color:#94a3b8; }
+  .drive-badge { background:#dc2626; font-size:11px; padding:3px 10px; border-radius:10px; color:#fff; margin-left:auto; }
+  .drive-badge.relaxed { background:#22c55e; }
+  .day-body { padding:18px 20px; }
+  
+  .d0 .day-num { background:#ef4444; } .d1 .day-num { background:#f97316; } .d2 .day-num { background:#eab308; }
+  .d3 .day-num { background:#22c55e; } .d4 .day-num { background:#06b6d4; } .d5 .day-num { background:#8b5cf6; }
+  
+  .route-info { display:flex; gap:10px; margin-bottom:14px; flex-wrap:wrap; }
+  .route-tag { display:inline-flex; align-items:center; gap:5px; background:#0f172a; padding:7px 13px; border-radius:10px; font-size:12.5px; }
+  .route-tag .dot { width:8px; height:8px; border-radius:50%; }
+  
+  /* 亲子友好提示 */
+  .kid-tip { background:rgba(245,158,11,0.12); border-left:3px solid #f59e0b; padding:10px 14px; border-radius:0 10px 10px 0; margin-bottom:14px; font-size:13px;color:#fbbf24;line-height:1.6; }
+  
+  .spots { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:12px; margin-top:12px; }
+  .spot-card { background:#0f172a; border-radius:12px; padding:14px; border:1px solid #334155; transition:transform .2s,border-color .2s; position:relative;overflow:hidden; }
+  .spot-card:hover { transform:translateY(-2px); border-color:#38bdf8; }
+  .spot-card.kid-friendly::before { content:'👶'; position:absolute;top:8px;right:8px;font-size:18px;opacity:0.7; }
+  .spot-name { font-weight:600; font-size:15px; color:#f1f5f9; margin-bottom:4px; display:flex; align-items:center; gap:6px; }
+  .ticket-price { display:inline-block; background:#dc2626; color:#fff; font-size:11px; padding:2px 8px; border-radius:8px; font-weight:600; }
+  .free-ticket { background:#16a34a; }
+  .kid-discount { background:#f59e0b; }
+  .spot-desc { font-size:13px; color:#94a3b8; line-height:1.5; margin-top:6px; }
+  .spot-time { font-size:12px; color:#64748b; margin-top:4px; }
+  .kid-note { font-size:11.5px; color:#f59e0b; margin-top:4px;font-style:italic; }
+
+  /* 美食区 */
+  .food-section { background:#1e293b; border-radius:16px; padding:20px; margin-bottom:24px; border:1px solid #334155; }
+  .food-section h2 { font-size:18px; margin-bottom:16px; color:#fbbf24; display:flex; align-items:center; gap:8px; }
+  .food-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; }
+  .food-item { background:#0f172a; border-radius:12px; padding:14px; border:1px solid #334155; }
+  .food-name { font-weight:600; font-size:15px; color:#fbbf24; }
+  .food-city { font-size:11px; color:#64748b; margin-top:2px; }
+  .food-desc { font-size:13px; color:#94a3b8; line-height:1.5; margin-top:6px; }
+  .food-kid { font-size:11px; color:#f59e0b; margin-top:4px; }
+
+  /* 酒店区 */
+  .hotel-section { background:#1e293b; border-radius:16px; padding:20px; margin-bottom:24px; border:1px solid #334155; }
+  .hotel-section h2 { font-size:18px; margin-bottom:16px; color:#a78bfa; display:flex; align-items:center; gap:8px; }
+  .hotel-note { background:#fff3cd; color:#856404; padding:12px 16px; border-radius:10px; font-size:13px; margin-bottom:14px; }
+  .hotel-list { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .hotel-card { background:#0f172a; border-radius:12px; padding:14px; border:1px solid #334155; }
+  .hotel-name { font-weight:600; color:#a78bfa; font-size:14px; }
+  .hotel-location { font-size:12px; color:#64748b; margin-top:3px; }
+  .hotel-reason { font-size:13px; color:#94a3b8; margin-top:6px; }
+
+  /* 提示 */
+  .tips { background:#1e293b; border-radius:16px; padding:20px; border:1px solid #334155; }
+  .tips h2 { font-size:17px; margin-bottom:12px; color:#38bdf8; }
+  .tip-list li { font-size:13.5px; color:#cbd5e1; line-height:1.9; list-style:none; padding-left:18px; position:relative; }
+  .tip-list li::before { content:'✦'; position:absolute; left:0; color:#38bdf8; font-size:11px; top:3px; }
+
+  @media(max-width:700px) {
+    .stats { grid-template-columns:repeat(2,1fr); }
+    .spots { grid-template-columns:1fr; }
+    .hotel-list { grid-template-columns:1fr; }
+    .food-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>👨‍👩‍👧‍👦 新疆塔城·伊宁 6天5晚 亲子悠闲之旅</h1>
+  <div class="subtitle">2026年4月30日 — 5月6日 · 成都出发 · 带3岁&5岁宝宝 🚗每日≤3h车程</div>
+</div>
+
+<div class="container">
+
+<!-- 亲子提示 -->
+<div class="kid-banner">
+  <span>🎒 亲子专属方案：每天车程 ≤ 3小时 | 多安排孩子喜欢的活动 | 节奏轻松不赶路 | 随时可休息</span>
+</div>
+
+<!-- 统计 -->
+<div class="stats">
+  <div class="stat-card"><div class="icon">✈️</div><div class="num">~4,400</div><div class="label">✈️ 飞行里程(km)</div></div>
+  <div class="stat-card"><div class="icon">🚗</div><div class="num">~650</div><div class="label">🚗 自驾里程(km)</div></div>
+  <div class="stat-card"><div class="icon">⏱️</div><div class="num">≤3h</div><div class="label">单日最长驾驶</div></div>
+  <div class="stat-card"><div class="icon">🎫</div><div class="num">10+</div><div class="label">必玩景点</div></div>
+  <div class="stat-card"><div class="icon">🍖</div><div class="num">16+</div><div class="label">特色美食</div></div>
+</div>
+
+<!-- 里程明细 -->
+<div style="background:#1e293b;border-radius:16px;padding:18px 20px;margin-bottom:24px;border:1px solid #334155;">
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;">
+    <div style="background:#0f172a;border-radius:12px;padding:16px;border:1px solid #334155;">
+      <div style="font-size:14px;color:#38bdf8;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px;">✈️ 飞行路线（不累！）</div>
+      <div style="font-size:13px;color:#cbd5e1;line-height:2.2;">
+        <div>🛫 成都 → 塔城 &nbsp; <span style="color:#38bdf8;">约 2,200 km</span> &nbsp; <span style="color:#64748b;">~5h（含经停）</span></div>
+        <div>🛬 伊宁 → 成都 &nbsp; <span style="color:#38bdf8;">约 2,200 km</span> &nbsp; <span style="color:#64748b;">~5h（含经停）</span></div>
+        <div style="margin-top:6px;padding-top:6px;border-top:1px solid #334155;"><strong style="color:#38bdf8;">飞行合计：~4,400 km</strong> （孩子在飞机上睡觉就好😴）</div>
+      </div>
+    </div>
+    <div style="background:#0f172a;border-radius:12px;padding:16px;border:1px solid #334155;">
+      <div style="font-size:14px;color:#22c55e;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px;">🚗 自驾路线（超轻松！每天≤3小时）</div>
+      <div style="font-size:13px;color:#cbd5e1;line-height:2.2;">
+        <div>D1 塔城市区游览 &nbsp; <span style="color:#22c55e;">~50 km</span> &nbsp; <span style="color:#64748b;">~1h ✅</span></div>
+        <div>D2 塔城 → 精河/博乐（中途停留） &nbsp; <span style="color:#22c55e;">~280 km</span> &nbsp; <span style="color:#64748b;">~3h ✅</span></div>
+        <div>D3 精河 → 赛里木湖 → 果子沟 → 伊宁 &nbsp; <span style="color:#22c55e;">~300 km</span> &nbsp; <span style="color:#64748b;">~3.5h ✅</span></div>
+        <div>D4 伊宁市区亲子游 &nbsp; <span style="color:#22c55e;">市内</span> &nbsp; <span style="color:#64748b;">打车 ✅</span></div>
+        <div>D5 伊宁 → 那拉提草原往返 &nbsp; <span style="color:#22c55e;">~20 km</span> &nbsp; <span style="color:#64748b;">区间车 ✅</span></div>
+        <div style="margin-top:6px;padding-top:6px;border-top:1px solid #334155;"><strong style="color:#22c55e;">自驾合计：~650 km</strong> （比原计划少一半！孩子不遭罪）</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 地图 -->
+<div class="map-section">
+  <div class="map-header">
+    <h2>🗺️ 亲子路线图</h2>
+    <span class="badge">交互式地图 - 可拖拽/缩放</span>
+  </div>
+  <canvas id="mapCanvas"></canvas>
+</div>
+
+<!-- Day 0 抵达 -->
+<div class="day-section d0">
+  <div class="day-header">
+    <div class="day-num">D0</div>
+    <strong style="font-size:17px;">成都 ✈️ 塔城（抵达·安顿）</strong>
+    <span class="date-badge">4月30日 周四</span>
+    <span class="drive-badge relaxed">✈️ 不开车</span>
+  </div>
+  <div class="day-body">
+    <div class="route-info">
+      <span class="route-tag"><span class="dot" style="background:#ef4444"></span>成都双流/天府机场 → 塔城机场</span>
+      <span class="route-tag"><span class="dot" style="background:#38bdf8"></span>✈️ 飞行约 5h（建议选午班机，孩子好睡）</span>
+      <span class="route-tag"><span class="dot" style="background:#22c55e"></span>🏨 入住塔城市酒店（连住2晚）</span>
+    </div>
+    <div class="kid-tip">
+      👶 <strong>亲子贴士：</strong>建议选下午抵达的航班，孩子可以在飞机上睡午觉。塔城比内地晚2小时天黑，抵达后还有大把时间慢慢逛。带好孩子的安抚玩具、零食、平板。
+    </div>
+    <p style="font-size:13.5px;color:#94a3b8;line-height:1.7;margin-bottom:12px;">
+      下午抵达后先到酒店放下行李，让娃们休息一下。傍晚在市区悠闲散步，适应时差和气候。塔城的节奏很慢，适合亲子慢游。
+    </p>
+    <div class="spots">
+      <div class="spot-card kid-friendly">
+        <div class="spot-name">🌿 双河公园 <span class="ticket-price free-ticket">免费</span></div>
+        <div class="spot-desc">塔城市中心公园，有大草坪、小湖、鸽子广场！孩子可以跑跑跳跳喂鸽子，是天然的儿童乐园。</div>
+        <div class="spot-time">🕐 建议：1-1.5小时 | 📍 市区内步行可达</div>
+        <div class="kid-note">👶 孩子可以追鸽子、在草地上打滚，非常放松</div>
+      </div>
+      <div class="spot-card">
+        <div class="spot-name">🕌 红楼博物馆 <span class="ticket-price free-ticket">免费</span></div>
+        <div class="spot-desc">俄式红砖地标建筑，展示多民族文化历史。建筑本身很漂亮，拍照出片。</div>
+        <div class="spot-time">🕐 建议：45分钟-1小时 | 📍 市区内</div>
+        <div class="kid-note">👶 楼层不高，逛起来不累；红色建筑很吸引小朋友目光</div>
+      </div>
+      <div class="spot-card">
+        <div class="spot-name">🍢 塔城夜市 <span class="ticket-price free-ticket">免费</span></div>
+        <div class="spot-desc">塔城的夜晚才刚开始！烤肉串、格瓦斯、各种小吃，烟火气十足。</div>
+        <div class="spot-time">🕐 建议：晚间1-1.5小时 | 📍 市中心</div>
+        <div class="kid-note">👶 有小孩能吃的烤馕、酸奶、冰淇淋，注意别吃太辣</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 1 塔城深度 -->
+<div class="day-section d1">
+  <div class="day-header">
+    <div class="day-num">D1</div>
+    <strong style="font-size:17px;">塔城悠闲游 · 陪娃慢慢玩</strong>
+    <span class="date-badge">5月1日 周五 劳动节</span>
+    <span class="drive-badge relaxed">🚗 ~50km / ~1h ✅超轻松</span>
+  </div>
+  <div class="day-body">
+    <div class="route-info">
+      <span class="route-tag"><span class="dot" style="background:#f97316"></span>酒店 → 巴克图口岸 → 手风琴博物馆 → 塔尔巴哈台山</span>
+      <span class="route-tag"><span class="dot" style="background:#38bdf8"></span>🚗 当日约 50km / 约1h</span>
+      <span class="route-tag"><span class="dot" style="background:#22c55e"></span>🏨 续住塔城（不用换酒店，娃的作息不乱）</span>
+    </div>
+    <div class="kid-tip">
+      👶 <strong>今日节奏：</strong>完全不赶！上午去一个地方，中午回酒店让孩子午休（新疆旅游午休很重要！），下午再出门。5岁宝宝会对边境国门很好奇，3岁宝宝会喜欢手风琴的声音~
+    </div>
+    <div class="spots">
+      <div class="spot-card kid-friendly">
+        <div class="spot-name">🚩 巴克图口岸 <span class="ticket-price">¥30</span> <span class="ticket-price kid-discount">儿童半价</span></div>
+        <div class="spot-desc">中哈边境国门！"妈妈，对面就是哈萨克斯坦啦！"——孩子第一次看到国界线会很兴奋。可远眺哈萨克斯坦。</div>
+        <div class="spot-time">🕐 建议：1小时（上午）| 📍 塔城以西12km</div>
+        <div class="kid-note">👶 5岁宝宝会问十万个为什么，提前准备答案；有界碑可以合影</div>
+      </div>
+      <div class="spot-card kid-friendly">
+        <div class="spot-name">🎵 手风琴博物馆 <span class="ticket-price">¥30</span> <span class="ticket-price kid-discount">儿童免费/半价</span></div>
+        <div class="spot-desc">全国唯一手风琴主题博物馆！塔城是"中国手风琴之城"。有讲解员演示演奏，声音特别好听。</div>
+        <div class="spot-time">🕐 建议：45分钟-1小时（下午）| 📍 文化路</div>
+        <div class="kid-note">👶 音乐启蒙好机会！3岁宝宝会跟着摇摆；有小型手风琴可以触摸体验</div>
+      </div>
+      <div class="spot-card kid-friendly">
+        <div class="spot-name">⛰️ 塔尔巴哈台山 <span class="ticket-price">¥40</span> <span class="ticket-price kid-discount">1.2m以下免费</span></div>
+        <div class="slot-desc">俯瞰塔城全貌的最佳观景点！山顶视野开阔，可以看到中哈边界线。山路已铺装好，车可以直接开到观景台附近。</div>
+        <div class="spot-time">🕐 建议：2小时（傍晚看日落）| 📍 塔城南郊 30km</div>
+        <div class="kid-note">👶 开车上山，不需要徒步；山顶风大给孩子加衣服；日落时分绝美</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 2 塔城→精河（中途停留）-->
+<div class="day-section d2">
+  <div class="day-header">
+    <div class="day-num">D2</div>
+    <strong style="font-size:17px;">塔城 🚗 精河/博乐（向西移动一天）</strong>
+    <span class="date-badge">5月2日 周六</span>
+    <span class="drive-badge relaxed">🚗 ~280km / ~3h ✅</span>
+  </div>
+  <div class="day-body">
+    <div class="route-info">
+      <span class="route-tag"><span class="dot" style="background:#eab308"></span>塔城 → 乌苏 → 精河县（G3015转G30）</span>
+      <span class="route-tag"><span class="dot" style="background:#38bdf8"></span>🚗 全程约 280km / 约3h（高速为主）</span>
+      <span class="route-tag"><span class="dot" style="background:#22c55e"></span>🏨 入住精河县/博乐市酒店</span>
+    </div>
+    <div class="kid-tip">
+      👶 <strong>为什么要中途住一晚？</strong>原计划一天从塔城开到伊宁要8.5小时——带着3岁和5岁宝宝简直是折磨！现在拆成两天：今天只开3小时就到精河休息，明天再到伊宁。孩子可以在服务区玩耍、上厕所、吃零食，完全不着急。<br>
+      💡 <strong>备选：</strong>如果觉得精力充沛，也可以直接开到<strong>赛里木湖附近的清水河镇</strong>入住（多1小时），第二天早上玩赛里木湖更从容。
+    </div>
+    <p style="font-size:13.5px;color:#94a3b8;line-height:1.7;margin-bottom:12px;">
+      上午出发前让娃们在酒店吃完早餐、玩一会儿，<strong>10点左右再出发</strong>（新疆时间相当于内地的8点）。走G3015奎塔高速转G30连霍高速，路况非常好。途中经过乌苏市可以在服务区休息。
+    </p>
+    <div class="spots">
+      <div class="spot-card kid-friendly">
+        <div class="spot-name">🐑 精河巴音阿门景区 <span class="ticket-price">¥30</span> <span class="ticket-price kid-discount">儿童优惠</span></div>
+        <div class="spot-desc">精河县附近的草原石林景区！奇形怪状的石头像动物一样，孩子会觉得很有趣。"妈妈这块石头像大象！"</div>
+        <div class="spot-time">🕐 建议：1.5-2小时（下午到达后游玩）| 📍 精河县以南</div>
+        <div class="kid-note">👶 石林步道平坦，3岁宝宝也能走；发挥想象力认石头形状</div>
+      </div>
+      <div class="spot-card kid-friendly">
+        <div class="spot-name">🏙️ 精河/博乐市区 <span class="ticket-price free-ticket">免费</span></div>
+        <div class="spot-desc">精河或博乐县城不大但很干净，晚上可以去当地夜市/步行街逛逛，买些水果干果当零食。枸杞之乡——精河的枸杞很出名！</div>
+        <div class="spot-time">🕐 建议：傍晚自由活动 | 📍 精河县/博乐市</div>
+        <div class="kid-note">👶 小县城节奏慢，人少安全；可以买新疆大葡萄干给宝宝当奖励</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 3 精河→赛里木湖→伊宁（精华日）-->
+<div class="day-section d3">
+  <div class="day-header">
+    <div class="day-num">D3</div>
+    <strong style="font-size:17px;">精河 → 💧赛里木湖 → 🌉果子沟 → 伊宁（精华日！）</strong>
+    <span class="date-badge">5月3日 周日</span>
+    <span class="drive-badge relaxed">🚗 ~300km / ~3.5h行车 ✅</span>
+  </div>
+  <div class="day-body">
+    <div class="route-info">
+      <span class="route-tag"><span class="dot" style="background:#22c55e"></span>精河 → 赛里木湖（南门进） → 果子沟大桥 → 清水河 → 伊宁</span>
+      <span class="route-tag"><span class="dot" style="background:#38bdf8"></span>🚗 行车约 300km / ~3.5h（不含游玩）</span>
+      <span class="route-tag"><span class="dot" style="background:#a78bfa"></span>🏨 入住伊宁市酒店（连住3晚不换房）</span>
+    </div>
+    <div class="kid-tip">
+      👶 <strong>今日重点：赛里木湖！</strong>这是全程最震撼的地方——"大西洋最后一滴眼泪"。4月底湖面可能还有蓝冰，孩子会超级兴奋！<br>
+      ⚠️ <strong>重要：</strong>赛里木湖海拔2073米，气温较低（可能只有3-8°C），一定给孩子带厚外套/羽绒服！湖边风大。但景色绝对值得！
+    </div>
+    <div class="spots">
+      <div class="spot-card kid-friendly">
+        <div class="spot-name">💧 赛里木湖 <span class="ticket-price">¥145</span> <span class="ticket-price kid-discount">1.2m以下免票</span></div>
+        <div class="spot-desc">⭐<strong>全程最震撼！</strong>"大西洋最后一滴眼泪"。环湖70km，S弯公路、天鹅乐水、亲水滩……4月底蓝冰未完全融化，孩子会惊呼"妈妈这里有冰！"——这种体验一辈子难忘！</div>
+        <div class="spot-time">🕐 建议：2.5-3小时（自驾环湖+停车玩）| 📍 博州境内</div>
+        <div class="kid-note">👶 自驾车可进景区！看到美景随时停。孩子可以在岸边扔石头、看天鹅、踩水（小心）。南门进东门出不走回头路</div>
+      </div>
+      <div class="spot-card kid-friendly">
+        <div class="spot-name">🌉 果子沟大桥 <span class="ticket-price free-ticket">免费</span></div>
+        <div class="spot-desc">⭐<strong>必打卡！</strong>中国最壮观的高架桥之一，穿越峡谷、雪山、森林同框。从赛里木湖出来就能看到，车子从桥上开过，孩子趴着窗户数桥墩~</div>
+        <div class="spot-time">🕐 建议：20-30分钟（车览 + 观景台停车拍照）| 📍 霍城县</div>
+        <div class="kid-note">👶 有免费的观景台可以下车拍照；大桥穿云而过非常震撼</div>
+      </div>
+      <div class="spot-card">
+        <div class="spot-name">🌸 解忧公主薰衣草园 <span class="ticket-price">¥35</span> <span class="ticket-price kid-discount">儿童半价</span></div>
+        <div class="spot-desc">5月初薰衣草刚开始长绿芽，虽未到盛花期但园区风景优美。紫色花田拍照好看。如果孩子累了可跳过。</div>
+        <div class="spot-time">🕐 建议：可选 40分钟 | 📍 清水河镇（前往伊宁途中）</div>
+        <div class="kid-note">👶 可选项目，如果孩子累了就直接回伊宁酒店休息</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 4 伊宁市区亲子游 -->
+<div class="day-section d4">
+  <div class="day-header">
+    <div class="day-num">D4</div>
+    <strong style="font-size:17px;">伊宁 · 亲子民俗欢乐日 🎠</strong>
+    <span class="date-badge">5月4日 周一 青年节</span>
+    <span class="drive-badge relaxed">🚗 市内 / 打车 ✅</span>
+  </div>
+  <div class="day-body">
+    <div class="route-info">
+      <span class="route-tag"><span class="dot" style="background:#06b6d4"></span>喀赞其民俗村 → 六星街 → 汉人街美食</span>
+      <span class="route-tag"><span class="dot" style="background:#38bdf8"></span>🚗 市内短途 / 打车即可</span>
+      <span class="route-tag"><span class="dot" style="background:#a78bfa"></span>🏨 续住伊宁</span>
+    </div>
+    <div class="kid-tip">
+      👶 <strong>今日是最受孩子欢迎的一天！</strong>坐马车、吃冰淇淋、看彩色房子、逛大巴扎……全是孩子喜欢的活动。完全不用赶时间，睡到自然醒（新疆时间10点），慢慢出门。<br>
+      💡 <strong>省钱妙招：</strong>喀赞其坐马车（哈迪克）是收费的，但整个街区免费漫步也很棒。冰淇淋一定要尝！
+    </div>
+    <div class="spots">
+      <div class="spot-card kid-friendly">
+        <div class="spot-name">🕌 喀赞其民俗旅游区 <span class="ticket-price free-ticket">免费</span></div>
+        <div class="spot-desc">⭐<strong>孩子最爱！</strong>蓝色门窗的维吾尔族老城区，坐马车"哈迪克"，吃手工冰淇淋，看当地人弹乐器。整个街区就是活着的博物馆，像走进童话世界！</div>
+        <div class="spot-time">🕐 建议：2.5-3小时（慢慢逛）| 📍 伊宁市东南</div>
+        <div class="kid-note">👶👶👶 坐马车（哈迪克）约30元/人，孩子超级爱！手工冰淇淋奶香浓郁（5元/个）；蓝色房子像动画片场景一样</div>
+      </div>
+      <div class="spot-card kid-friendly">
+        <div class="spot-name">🌈 六星街 <span class="ticket-price free-ticket">免费</span></div>
+        <div class="spot-desc">俄罗斯族风情街区！彩色房子+蓝屋顶，每个角落都超好拍。古兰丹姆手工冰淇淋、俄罗斯列巴房必打卡。</div>
+        <div class="spot-time">🕐 建议：1.5-2小时 | 📍 伊宁市西</div>
+        <div class="kid-note">👶 彩色墙壁孩子会觉得很神奇；列巴房有刚出炉的面包香味；买个小列巴给娃当零食</div>
+      </div>
+      <div class="spot-card kid-friendly">
+        <div class="spot-name">🍢 汉人街美食大巴扎 <span class="ticket-price free-ticket">免费</span></div>
+        <div class="spot-desc">伊宁最大的美食集市！烤包子、面肺子、纳仁、酸奶粽子……一站式吃遍新疆小吃。热闹程度孩子也会兴奋！</div>
+        <div class="spot-time">🕐 建议：1.5-2小时（晚餐时间最佳）| 📍 伊宁市东</div>
+        <div class="kid-note">👶 烤包子（不辣）、馕、酸奶、瓜果都是孩子能吃的；场面热闹像过节</div>
+      </div>
+      <div class="spot-card">
+        <div class="spot-name">🏛️ 林则徐纪念馆 <span class="ticket-price free-ticket">免费</span></div>
+        <div class="spot-desc">了解伊犁历史文化的好地方。如果孩子对历史感兴趣可以看看，否则可跳过。</div>
+        <div class="spot-time">🕐 建议：可选 30分钟 | 📍 市区内</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 5 那拉提草原 -->
+<div class="day-section d5">
+  <div class="day-header">
+    <div class="day-num">D5</div>
+    <strong style="font-size:17px;">🌾 那拉提草原 · 空中花园（区间车省心）</strong>
+    <span class="date-badge">5月5日 周二</span>
+    <span class="drive-badge relaxed">🚌 区间车 / ~20km ✅</span>
+  </div>
+  <div class="day-body">
+    <div class="route-info">
+      <span class="route-tag"><span class="dot" style="background:#8b5cf6"></span>伊宁 → 巩留 → 那拉提景区（乘区间车） → 返回伊宁</span>
+      <span class="route-tag"><span class="dot" style="background:#38bdf8"></span>🚌 单程公路约150km + 景区区间车（自己不开长途）</span>
+      <span class="route-tag"><span class="dot" style="background:#a78bfa"></span>🏨 续住伊宁（最后一晚）</span>
+    </div>
+    <div class="kid-tip">
+      👶 <strong>为什么改那拉提而不是恰西？</strong>因为那拉提有完善的区间车系统（空中草原线路），<strong>不需要自己开山路</strong>！坐在观光车上就能看遍草原风光。而且那拉提有"游牧人家"可以骑马（有牵马的小哥哥看着，安全）。<br>
+      ⚠️ 那拉提海拔约1800m，一般不会有高反。但草原天气多变，备好雨具和外套。
+    </div>
+    <div class="spots">
+      <div class="spot-card kid-friendly">
+        <div class="spot-name">🌾 那拉提草原（空中草原线路）<span class="ticket-price">¥135</span> <span class="ticket-price kid-discount">1.2m以下免票/区间车含在内</span></div>
+        <div class="spot-desc">⭐<strong>世界四大草原之一！</strong>《可可托海的牧羊人》取景地。乘区间车一路上山到"游牧人家"，沿途雪山+森林+草原三层景观！5月初野百合初开（新疆叫"顶冰花"），绿意渐浓。网红独木桥打卡！</div>
+        <div class="spot-time">🕐 建议：4-5小时（含往返区间车）| 📍 新源县</div>
+        <div class="kid-note">👶👶👶 区间车约40分钟/程，孩子不会累；游牧人家可以骑马（有工作人员牵着，安全）；网红独木桥拍照超好看；草原上跑跑跳跳释放能量</div>
+      </div>
+      <div class="spot-card">
+        <div class="spot-name">🌲 库尔德宁风景区 <span class="ticket-price">¥60</span></div>
+        <div class="spot-desc">原始云杉林海，比那拉提更原生态。但如果带着两个小孩，建议跳过——需要更多徒步。留着下次来！</div>
+        <div class="spot-time">🕐 建议：可选/跳过（带娃推荐放弃）| 📍 巩留县</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 6 返程 -->
+<div class="day-section d0">
+  <div class="day-header">
+    <div class="day-num">D6</div>
+    <strong style="font-size:17px;">伊宁 ✈️ 成都（返程）</strong>
+    <span class="date-badge">5月6日 周三</span>
+    <span class="drive-badge relaxed">✈️ 不开车</span>
+  </div>
+  <div class="day-body">
+    <div class="route-info">
+      <span class="route-tag"><span class="dot" style="background:#ef4444"></span>伊宁市区最后逛逛 → 伊宁机场 → 成都</span>
+      <span class="route-tag"><span class="dot" style="background:#38bdf8"></span>✈️ 飞行约 5h</span>
+    </div>
+    <div class="kid-tip">
+      👶 最后半天不安排密集行程。可以让娃们再吃一次喀赞其的冰淇淋（还没吃够吧😄），然后去买伴手礼。
+    </div>
+    <p style="font-size:13.5px;color:#94a3b8;line-height:1.7;">
+      上午睡个懒觉，再去喀赞其或六星街补买没来得及买的手信。伊犁蜂蜜、薰衣草精油、干果、民族手工艺品都是很好的纪念品。然后前往机场返程。
+    </p>
+    <div class="spots">
+      <div class="spot-card kid-friendly">
+        <div class="spot-name">🛍️ 伊犁大巴扎 / 特产市场 <span class="ticket-price free-ticket">免费</span></div>
+        <div class="spot-desc">购买伴手礼的好去处：伊犁蜂蜜（孩子吃的）、薰衣草制品（妈妈的）、干果（奶奶的）、民族手工艺品。</div>
+        <div class="spot-time">🕐 建议：1-1.5小时 | 📍 伊宁市</div>
+        <div class="kid-note">👶 可以让娃自己挑一个小纪念品（如小花帽、小挂件），参与感满满</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 美食推荐 - 增加亲子标注 -->
+<div class="food-section">
+  <h2>🍖 必吃美食清单（哪些适合宝宝吃都标好了 👶）</h2>
+  <div class="food-grid">
+    <div class="food-item">
+      <div class="food-name">🥘 塔城大盘鸡</div>
+      <div class="food-city">📍 塔城</div>
+      <div class="food-desc">塔城的大盘鸡是新疆名片！土豆软糯入味，皮带面吸满汤汁。分量实在到惊人。</div>
+      <div class="food-kid">👶 土豆和皮带面很适合孩子（选不辣的微辣版）</div>
+    </div>
+    <div class="food-item">
+      <div class="food-name">🍦 古兰丹姆手工冰淇淋</div>
+      <div class="food-city">📍 伊宁·喀赞其/六星街</div>
+      <div class="food-desc">用鲜奶和鸡蛋传统工艺制成，奶香浓郁！多种口味可选（玫瑰、核桃、无花果等）。喀赞其老店排队也要吃！</div>
+      <div class="food-kid">👶👶👶 孩子的最爱！！纯天然无添加，放心吃</div>
+    </div>
+    <div class="food-item">
+      <div class="food-name">🫓 俄罗斯列巴</div>
+      <div class="food-city">📍 伊宁·六星街</div>
+      <div class="food-desc">伊宁俄罗斯族传承百年的面包技艺，外脆内软，麦香扑鼻。搭配自酿格瓦斯。</div>
+      <div class="food-kid">👶 刚出炉的软列巴，孩子当零食完美</div>
+    </div>
+    <div class="food-item">
+      <div class="food-name">🥟 烤包子 & 馕</div>
+      <div class="food-city">📍 伊宁·汉人街</div>
+      <div class="food-desc">刚出炉的烤包子外皮酥脆肉馅爆汁！馕有甜馕、奶馕等多种选择。</div>
+      <div class="food-kid">👶 烤包子（不辣的）/ 奶馕 / 馕 — 都是孩子的菜</div>
+    </div>
+    <div class="food-item">
+      <div class="food-name">🧊 格瓦斯（发酵饮料）</div>
+      <div class="food-city">📍 塔城/伊宁</div>
+      <div class="food-desc">新疆国民饮料！用面包发酵制成，口感像啤酒但无酒精，解腻解渴神器。</div>
+      <div class="food-kid">👶 无酒精！孩子喝没问题，味道甜甜的像汽水</div>
+    </div>
+    <div class="food-item">
+      <div class="food-name">🍰 酸奶粽子</div>
+      <div class="food-city">📍 伊宁·汉人街</div>
+      <div class="food-desc">把糯米粽淋上浓稠的酸奶再加蜂蜜！咸甜交织的神奇组合。</div>
+      <div class="food-kid">👶 酸奶+蜂蜜+糯米 = 孩子的甜品天堂</div>
+    </div>
+    <div class="food-item">
+      <div class="food-name">🍢 塔城烤肉串</div>
+      <div class="food-city">📍 塔城夜市</div>
+      <div class="food-desc">塔城羊肉品质极佳，肥瘦相间，撒孜然辣椒面。</div>
+      <div class="food-kid">👶 选瘦串或不辣的，5岁以上可以适量尝试</div>
+    </div>
+    <div class="food-item">
+      <div class="food-name">🥩 哈萨克手抓肉（纳仁）</div>
+      <div class="food-city">📍 塔城/伊宁均有</div>
+      <div class="food-desc">新鲜羊肉煮制，蘸盐水或洋葱吃，原汁原味！纳仁是面条拌羊肉。</div>
+      <div class="food-kid">👶 白煮羊肉很嫩不柴，蘸一点点盐就行（淡口味适合孩子）</div>
+    </div>
+    <div class="food-item">
+      <div class="food-name">🫕 沈派西域菜</div>
+      <div class="food-city">📍 伊宁·开发区店 📞0999-8992116</div>
+      <div class="food-desc">融合多民族风味的高端餐厅，环境优雅适合家庭正餐。有儿童座椅。</div>
+      <div class="food-kid">👶 环境好、有宝宝椅，适合一家人好好吃顿饭</div>
+    </div>
+    <div class="food-item">
+      <div class="food-name">🏠 海尔巴格餐厅</div>
+      <div class="food-city">📍 伊宁·喀赞其 📞0999-8356111</div>
+      <div class="food-desc">就在喀赞其景区内的地道新疆菜馆，装修很有民族风情。</div>
+      <div class="food-kid">👶 在景区里方便，吃完直接继续逛</div>
+    </div>
+    <div class="food-item">
+      <div class="food-name">🍇 新疆瓜果 & 干果</div>
+      <div class="food-city">📍 各地都有</div>
+      <div class="food-desc">吐鲁番葡萄干、哈密瓜干、杏干、红枣、核桃……新疆的干果品质全国第一。</div>
+      <div class="food-kid">👶👶👶 葡萄干、杏干、枣 — 天然健康的宝宝零食！路上哄娃神器</div>
+    </div>
+    <div class="food-item">
+      <div class="food-name">🫙 塔城风干肉 & 马肠子</div>
+      <div class="food-city">📍 塔城特色</div>
+      <div class="food-desc">塔城的马肠子和风干肉在全疆都出名！肉质紧实有嚼劲。</div>
+      <div class="food-kid">👶 口感偏硬，不太适合低龄宝宝，大人享用</div>
+    </div>
+  </div>
+</div>
+
+<!-- 酒店 - 增加亲子考虑 -->
+<div class="hotel-section">
+  <h2>🏨 酒店推荐（亲子友好型）</h2>
+  <div class="hotel-note">
+    ⚠️ <strong>注意：</strong>途牛酒店预订服务当前暂时异常（500错误），以下为手动推荐。带娃出行酒店选择很重要：<strong>选有电梯、有热水、靠近吃饭地方的</strong>。
+    建议通过携程、飞猪、美团搜索并提前预订（5月1-5日为假期旺季！）
+  </div>
+  <div class="hotel-list">
+    <div class="hotel-card">
+      <div class="hotel-name">🏨 塔城市区（连住D0-D1两晚）</div>
+      <div class="hotel-location">📍 杜别克街 / 文化路 / 双河路一带</div>
+      <div class="hotel-reason">💡 靠近红楼博物馆、手风琴博物馆、双河公园、夜市。建议选有<strong>亲子房/家庭房</strong>的酒店。预算 ¥200-400/晚<br>👶 推荐理由：连住两晚不用收拾行李，娃的作息稳定；周边吃喝便利</div>
+    </div>
+    <div class="hotel-card">
+      <div class="hotel-name">🏨 精河县/博乐市（D2一晚）</div>
+      <div class="hotel-location">📍 精河县城中心 / 博乐市北京南路一带</div>
+      <div class="hotel-reason">💡 中转住宿，干净舒适即可。建议预算 ¥180-300/晚<br>👶 推荐理由：只需要睡一觉，选个干净的快捷酒店就行。第二天精神饱满去赛里木湖</div>
+    </div>
+    <div class="hotel-card">
+      <div class="hotel-name">🏨 伊宁市区（连住D3-D5三晚）</div>
+      <div class="hotel-location">📍 解放路 / 斯大林街 / 北京北路一带</div>
+      <div class="hotel-reason">💡 <strong>最重要的酒店！连住三晚。</strong>靠近喀赞其（2km）、六星街（3km）、汉人街（2km）。建议选有早餐的中档酒店。预算 ¥250-500/晚<br>👶👶👶 强烈推荐选有<strong>早餐+停车位+电梯</strong>的酒店。连住三天不用搬行李，孩子有熟悉的"家"的感觉</div>
+    </div>
+  </div>
+</div>
+
+<!-- 温馨提示 - 大量增加亲子内容 -->
+<div class="tips">
+  <h2>💡 亲子行前必读 Tips</h2>
+  <ul class="tip-list">
+    <li><strong>🎒 儿童必备物品：</strong>换洗衣物多带2套（孩子容易弄脏）、常用感冒药/肠胃药/退烧药/创可贴、防晒霜、保温杯、湿纸巾、小毛毯（车上空调冷）、安抚玩具/绘本/平板（长途备用）</li>
+    <li><strong>🚗 安全座椅：</strong>新疆要求儿童必须使用安全座椅！提前在租车平台预订儿童座椅（3岁和5岁各一个）</li>
+    <li><strong>⏰ 时差优势：</strong>新疆比内地晚2小时天黑（22:00才天黑），意味着孩子可以多玩很久还不困！但也要保证午休时间</li>
+    <li><strong>👕穿衣法则：</strong>洋葱式穿衣法！4月底-5月初早晚温差大（3-20°C）。<strong>孩子：</strong>保暖内衣+薄毛衣+羽绒背心/冲锋衣+帽子。赛里木湖边一定要穿厚外套！</li>
+    <li><strong>🍼 饮食适应：</strong>新疆以牛羊肉为主，如果孩子吃不惯可以点炒饭/面条/馕。超市有婴儿食品补充。多喝水！新疆很干燥。</li>
+    <li><strong>🚽 如厕提醒：</strong>高速公路服务区间隔较远（约50-80km一个），上车前务必让孩子上好厕所。随身携带便携尿壶（应急用，尤其3岁宝宝）</li>
+    <li><strong>🎫 门票优惠：</strong>大多数景区对1.2米以下儿童免票！赛里木湖¥145（1.2m下免）、那拉提¥135（含区间车，1.2m下免）、塔尔巴哈台山¥40（1.2m下免）、巴克图¥30（儿童半价）、手风琴馆¥30（儿童半价/免费）、恰西¥30（1.2m下免）、薰衣草园¥35（儿童半价）</li>
+    <li><strong>预估成人门票总计：约 ¥350-400/人（比原计划少了库尔德宁¥60，增加了灵活性）</strong></li>
+    <li><strong>📱 预估儿童门票总计：约 ¥50-80/人（大部分免票！）</strong></li>
+    <li><strong>🛣️ 自驾要点：</strong>G30高速路况优秀但弯道多，不要开快车。每1.5-2小时进服务区休息一次（让孩子上厕所+活动）。加油站间隔较远，油箱保持半满以上</li>
+    <li><strong>🏔️ 高反提醒：</strong>赛里木湖海拔2073m、那拉提约1800m，一般不会有严重高反。但如果孩子出现烦躁/嗜睡/呕吐，立即到低海拔处休息</li>
+    <li><strong>🆘 应急预案：</strong>每个城市都有县/市级医院（塔城市人民医院、精河县人民医院、伊宁县友谊医院等）。保存好酒店地址和紧急联系方式</li>
+  </ul>
+</div>
+
+</div>
+
+
+<script>
+// ===== 交互式路线地图（真实地理坐标版）=====
+const canvas = document.getElementById('mapCanvas');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+  const r = devicePixelRatio || 1;
+  canvas.width = canvas.clientWidth * r;
+  canvas.height = canvas.clientHeight * r;
+  ctx.setTransform(r, 0, 0, r, 0, 0);
+  draw();
+}
+window.addEventListener('resize', resize);
+
+// ===== 真实经纬度坐标 =====
+// 经度范围: 73°E - 111°E   纬度范围: 27°N - 49°N
+const LON_MIN = 73, LON_MAX = 111;
+const LAT_MIN = 27, LAT_MAX = 49;
+
+// 城市真实坐标 (lng, lat)
+const cities = [
+  { name:'成都', lng:104.067, lat:30.667, color:'#ef4444', desc:'出发地 ✈️' },
+  { name:'塔城', lng:82.986, lat:46.747, color:'#f97316', desc:'D0-D1 住2晚' },
+  { name:'精河', lng:82.893, lat:44.606, color:'#eab308', desc:'D2 中转住宿' },
+  { name:'赛里木湖', lng:81.120, lat:44.618, color:'#22c55e', desc:'大西洋最后一滴眼泪' },
+  { name:'果子沟', lng:81.250, lat:44.450, color:'#22c55e', desc:'果子沟大桥' },
+  { name:'伊宁', lng:81.320, lat:43.920, color:'#06b6d4', desc:'D3-D5 住3晚' },
+  { name:'那拉提', lng:83.330, lat:43.300, color:'#8b5cf6', desc:'空中草原' },
+];
+
+// 路线路径
+const routes = [
+  { from:0, to:1, color:'#ef4444', label:'D0 ✈️ 成都→塔城 ~5h', dash:[8,6] },
+  { from:1, to:1, loop:true, color:'#f97316', label:'D1 塔城市区游 ~50km' },
+  { from:1, to:2, color:'#eab308', label:'D2 自驾 ~280km / 3h' },
+  { from:2, to:3, color:'#22c55e', label:'D3 精河→赛里木湖' },
+  { from:3, to:4, color:'#22c55e', label:'', dash:null },
+  { from:4, to:5, color:'#22c55e', label:'D3 果子沟→伊宁', dash:null },
+  { from:5, to:5, loop:true, color:'#06b6d4', label:'D4 伊宁市内游' },
+  { from:5, to:6, color:'#8b5cf6', label:'D5 那拉提 往返', dash:[6,4] },
+  { from:5, to:0, color:'#ef4444', label:'D6 ✈️ 伊宁→成都 ~5h', dash:[8,6] },
+];
+
+let offsetX = 0, offsetY = 0, scale = 1;
+let isDragging = false, lastX, lastY;
+
+canvas.addEventListener('mousedown', e => { isDragging = true; lastX=e.clientX; lastY=e.clientY; });
+canvas.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  offsetX += e.clientX - lastX; offsetY += e.clientY - lastY;
+  lastX = e.clientX; lastY = e.clientY; draw();
+});
+canvas.addEventListener('mouseup', () => isDragging=false);
+canvas.addEventListener('mouseleave', () => isDragging=false);
+canvas.addEventListener('wheel', e => {
+  e.preventDefault();
+  const delta = e.deltaY > 0 ? 0.92 : 1.08;
+  scale *= delta;
+  scale = Math.max(0.5, Math.min(4, scale));
+  draw();
+});
+
+/**
+ * 将经纬度转换为 Canvas 屏幕坐标（墨卡托投影近似）
+ */
+function toScreen(lng, lat) {
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  let x = (lng - LON_MIN) / (LON_MAX - LON_MIN);
+  const latRad = lat * Math.PI / 180;
+  const minLatRad = LAT_MIN * Math.PI / 180;
+  const maxLatRad = LAT_MAX * Math.PI / 180;
+  let y = 1 - (Math.log(Math.tan(latRad/2 + Math.PI/4)) -
+               Math.log(Math.tan(minLatRad/2 + Math.PI/4))) /
+             (Math.log(Math.tan(maxLatRad/2 + Math.PI/4)) -
+              Math.log(Math.tan(minLatRad/2 + Math.PI/4)));
+  return [
+    (x * w + offsetX) * scale + w*(1-scale)/2,
+    (y * h + offsetY) * scale + h*(1-scale)/2
+  ];
+}
+
+function drawGrid(w, h) {
+  ctx.strokeStyle = 'rgba(51,65,85,0.4)';
+  ctx.lineWidth = 0.5;
+  for (let lon = 75; lon <= 110; lon += 5) {
+    const [sx] = toScreen(lon, (LAT_MIN+LAT_MAX)/2);
+    ctx.globalAlpha = 0.25; ctx.setLineDash([2,4]);
+    ctx.beginPath(); ctx.moveTo(sx, 0); ctx.lineTo(sx, h); ctx.stroke();
+    ctx.setLineDash([]); ctx.globalAlpha = 1;
+  }
+  for (let lat = 29; lat <= 48; lat += 3) {
+    const [, sy] = toScreen((LON_MIN+LON_MAX)/2, lat);
+    ctx.globalAlpha = 0.25; ctx.setLineDash([2,4]);
+    ctx.beginPath(); ctx.moveTo(0, sy); ctx.lineTo(w, sy); ctx.stroke();
+    ctx.setLineDash([]); ctx.globalAlpha = 1;
+  }
+}
+
+function drawSichuan() {
+  const scBorder = [[98.0,33.0],[103.5,34.2],[108.5,32.8],[109.5,30.5],[107.5,28.0],[102.5,26.5],[98.5,27.5],[97.0,29.5],[97.5,31.5]];
+  ctx.strokeStyle = 'rgba(100,116,139,0.25)';
+  ctx.lineWidth = 1; ctx.setLineDash([4,3]);
+  ctx.beginPath(); let first=true;
+  for (const pt of scBorder) { const [sx,sy]=toScreen(pt[0],pt[1]); if(first){ctx.moveTo(sx,sy);first=false;}else ctx.lineTo(sx,sy); }
+  ctx.closePath(); ctx.fillStyle='rgba(239,68,68,0.04)'; ctx.fill(); ctx.stroke(); ctx.setLineDash([]);
+  const [scx,scy]=toScreen(103.0,30.5);
+  ctx.font='bold 14px Microsoft YaHei'; ctx.fillStyle='rgba(100,116,139,0.7)';
+  ctx.textAlign='center'; ctx.fillText('\ud83d\udc3c \u56db\u5ddd\u7701', scx, scy);
+}
+
+function drawXinjiangOutline() {
+  const border = [[73.5,42.0],[76.0,48.5],[80.0,49.2],[85.0,49.0],[90.5,46.0],[96.0,42.5],[97.5,39.0],[95.0,36.5],[87.5,35.0],[80.0,34.5],[74.5,36.5],[72.5,39.5],[73.0,41.5]];
+  ctx.strokeStyle='rgba(148,163,184,0.35)'; ctx.lineWidth=1.5; ctx.setLineDash([]);
+  ctx.beginPath(); let first=true;
+  for(const pt of border){const[sx,sy]=toScreen(pt[0],pt[1]);if(first){ctx.moveTo(sx,sy);first=false;}else ctx.lineTo(sx,sy);}
+  ctx.closePath(); ctx.fillStyle='rgba(56,189,248,0.05)'; ctx.fill();
+  ctx.strokeStyle='rgba(148,163,184,0.4)'; ctx.stroke();
+  const[cx,cy]=toScreen(85.0,42.0);
+  ctx.font='bold 18px Microsoft YaHei'; ctx.fillStyle='rgba(71,85,105,0.8)';
+  ctx.textAlign='center'; ctx.fillText('\ud83d\udee4\ufe0f \u65b0\u7586\u7ef4\u543e\u5c14\u81ea\u6cbb\u533a', cx, cy);
+}
+
+function draw() {
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  ctx.clearRect(0, 0, w, h);
+  var bgGrad = ctx.createLinearGradient(0,0,w,h);
+  bgGrad.addColorStop(0,'#0a0f1a'); bgGrad.addColorStop(1,'#0d1526');
+  ctx.fillStyle=bgGrad; ctx.fillRect(0,0,w,h);
+  drawGrid(w,h);
+  drawSichuan();
+  drawXinjiangOutline();
+
+  for (var ri = 0; ri < routes.length; ri++) {
+    var route = routes[ri]; var c = cities[route.from];
+    var p1 = toScreen(c.lng, c.lat);
+    ctx.strokeStyle = route.color||'#38bdf8'; ctx.lineWidth = route.dash ? 2.5 : 3; ctx.setLineDash(route.dash||[]);
+    if(route.loop){
+      ctx.beginPath(); ctx.arc(p1[0],p1[1],26,0,Math.PI*2); ctx.stroke();
+    }else{
+      var d = cities[route.to]; var p2 = toScreen(d.lng,d.lat);
+      ctx.beginPath(); ctx.moveTo(p1[0],p1[1]);
+      if(route.dash && (route.label.indexOf('\u2708\ufe0f')!==-1)){
+        var mx=(p1[0]+p2[0])/2, my=(p1[1]+p2[1])/2-60;
+        ctx.quadraticCurveTo(mx,my,p2[0],p2[1]);
+        ctx.setLineDash([]); ctx.fillStyle=route.color; ctx.font='16px sans-serif'; ctx.textAlign='center';
+        ctx.fillText('\u2708\ufe0f',mx,my-8); ctx.setLineDash(route.dash);
+      }else{ ctx.lineTo(p2[0],p2[1]); }
+      ctx.stroke();
+      var angle=Math.atan2(p2[1]-p1[1],p2[0]-p1[0]);
+      var ax=p2[0]-11*Math.cos(angle), ay=p2[1]-11*Math.sin(angle);
+      ctx.setLineDash([]); ctx.fillStyle=route.color||'#38bdf8';
+      ctx.beginPath(); ctx.moveTo(p2[0],p2[1]);
+      ctx.lineTo(ax+5*Math.cos(angle+2.3),ay+5*Math.sin(angle+2.3));
+      ctx.lineTo(ax+5*Math.cos(angle-2.3),ay+5*Math.sin(angle-2.3));
+      ctx.closePath(); ctx.fill();
+    }
+  }
+
+  for(var i=0;i<cities.length;i++){
+    var ci=cities[i]; var cc=toScreen(ci.lng,ci.lat);
+    var glow=ctx.createRadialGradient(cc[0],cc[1],0,cc[0],cc[1],28);
+    glow.addColorStop(0,ci.color+'35'); glow.addColorStop(1,'transparent');
+    ctx.fillStyle=glow; ctx.beginPath(); ctx.arc(cc[0],cc[1],28,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle=ci.color; ctx.beginPath(); ctx.arc(cc[0],cc[1],13,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(cc[0],cc[1],6,0,Math.PI*2); ctx.fill();
+    ctx.font='bold 13px Microsoft YaHei'; ctx.fillStyle='#f1f5f9'; ctx.textAlign='center';
+    ctx.fillText(ci.name,cc[0],cc[1]-20);
+    if(ci.desc){ ctx.font='10px Microsoft YaHei'; ctx.fillStyle='#94a3b8'; ctx.fillText(ci.desc,cc[0],cc[1]+32); }
+  }
+
+  // 图例
+  ctx.textAlign='left';
+  var legend=[['#ef4444','D0/D6','\u2708\ufe0f \u98de\u884c\u822a\u7ebf'],['#f97316','D1','\ud83d\ude97 \u5854\u57ce\u6e38 ~50km'],['#eab308','D2','\ud83d\ude97 \u5850\u57ce\u2192\u7cbe\u6cb3 280km'],['#22c55e','D3','\ud83d\ude97 \u7cbe\u6cb3\u2192\u8d5b\u6e56\u2192\u4f0a\u5b81'],['#06b6d4','D4','\ud83d\udec9 \u4f0a\u5b81\u5e02\u5185\u6e38'],['#8b5cf6','D5','\ud83d\udedd\ufe0f \u90a3\u62c9\u63d0\u8349\u539f']];
+  var ly=18;
+  for(var li=0;li<legend.length;li++){
+    var leg=legend[li];
+    ctx.fillStyle=leg[0]; ctx.beginPath(); ctx.roundRect(14,ly-8,14,14,3); ctx.fill();
+    ctx.font='11px Microsoft YaHei'; ctx.fillStyle='#cbd5e1';
+    ctx.fillText(leg[1]+'  '+leg[2],34,ly+3); ly+=22;
+  }
+  ctx.strokeStyle='rgba(51,65,85,0.6)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(14,ly+4); ctx.lineTo(220,ly+4); ctx.stroke(); ly+=16;
+  ctx.font='10px Microsoft YaHei'; ctx.fillStyle='#64748b';
+  ctx.fillText('\ud83d\udccd \u5750\u6807\u7cfb: \u771f\u5b9e\u7ecf\u7eac\u5ea6 (WGS84)',14,ly); ly+=16;
+  ctx.fillText('\ud83d\udcf0 \u7ecf\u5ea6 '+LON_MIN+'\u00b0E ~ '+LON_MAX+'\u00b0E | \u7eac\u5ea6 '+LAT_MIN+'\u00b0N ~ '+LAT_MAX+'\u00b0N',14,ly); ly+=16;
+  ctx.fillText('\ud83d\uddea\ufe0f \u6295\u5f71: \u58a8\u5361\u6258\u8fd1\u4f3c',14,ly);
+
+  // 指南针 & 提示
+  var compassX=w-40,compassY=45; ctx.save(); ctx.translate(compassX,compassY);
+  ctx.fillStyle='rgba(239,68,68,0.8)'; ctx.beginPath(); ctx.moveTo(0,-18); ctx.lineTo(-6,4); ctx.lineTo(6,4); ctx.closePath(); ctx.fill();
+  ctx.fillStyle='rgba(148,163,184,0.5)'; ctx.beginPath(); ctx.moveTo(0,18); ctx.lineTo(-6,4); ctx.lineTo(6,4); ctx.closePath(); ctx.fill();
+  ctx.font='bold 10px Microsoft YaHei'; ctx.fillStyle='#ef4444'; ctx.textAlign='center'; ctx.fillText('N',0,-23);
+  ctx.restore();
+  ctx.font='11px Microsoft YaHei'; ctx.fillStyle='rgba(71,85,105,0.7)';
+  ctx.textAlign='right'; ctx.fillText('\ud83d\udd0d\u62d6\u62fd\u5e73\u79fb  \u00b7  \u2699\ufe0f \u6eda\u8f6e\u7f29\u653e  \u00b7  \ud83d\udccd \u771f\u5b9e\u5730\u7406\u5750\u6807',w-14,h-12);
+}
+
+resize();
+</script>
+</body>
+</html>
