@@ -77,6 +77,7 @@ td{padding:9px 10px;border-top:1px solid var(--border)}tr:hover td{background:rg
 footer{text-align:center;padding:20px;color:var(--text2);font-size:12px;margin-top:20px;border-top:1px solid var(--border)}
 
 @media(max-width:768px){body{padding:8px}#mapContainer{height:300px}.hero h1{font-size:20px}.tabs{flex-direction:column}.day-grid{grid-template-columns:1fr}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
 </style>
 </head>
 <body>
@@ -587,8 +588,6 @@ function tog(el) { if(el && el.parentElement) el.parentElement.classList.toggle(
 })();
 
 console.log('✅ 页面加载完成 - SVG路线图已渲染（纯内联，无外部依赖）');
-
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
 </script>
 </body>
 </html>
