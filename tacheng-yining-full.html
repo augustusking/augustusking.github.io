@@ -84,164 +84,180 @@ footer{text-align:center;padding:20px;color:var(--text2);font-size:12px;margin-t
 
 <div class="hero">
 <h1>🚗 <span>塔城 → 伊宁</span> · 6天自驾全景</h1>
-<div class="sub">地图可视化 + 路线合理性分析 + 酒店实时报价 + 费用预算</div>
+<div class="sub">成都飞塔城落地自驾 · 边境风光 + 赛里木湖 + 伊犁河谷 · 全攻略</div>
 <div class="tags">
-<span class="tag">📅 4.30 - 5.6</span><span class="tag">📍 G219+精伊牧道</span>
-<span class="tag">🏨 途牛酒店实时价</span><span class="tag">💰 全费用估算</span><span class="tag" style="animation:pulse 2s infinite">⚠️ 夏塔已关闭</span>
+<span class="tag">✈️ 4/30 成都→塔城</span><span class="tag">📍 G219+G30连霍高速</span>
+<span class="tag">🏨 途牛酒店实时价</span><span class="tag">💰 全费用估算</span><span class="tag" style="animation:pulse 2s infinite">⚠️ 五一黄金周</span>
 </div>
 </div>
 
-<!-- Map: 纯SVG内联路线图（无需任何外部依赖，保证100%显示）-->
+<!-- Map: 纯SVG内联路线图（2026版新路线：塔城→裕民→阿拉山口→精河→赛湖→果子沟→霍尔果斯→图开沙漠→伊宁→托乎拉苏→天山花海）-->
 <div id="mapContainer">
 <svg viewBox="0 0 800 520" preserveAspectRatio="xMidYMid meet" style="width:100%;height:420px;background:#1a2332;border-radius:16px;display:block">
 <defs>
-<!-- 背景网格 -->
 <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ffffff08" stroke-width="0.5"/></pattern>
-<!-- 发光效果 -->
 <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMergeFilter>
 </defs>
-<!-- 背景 -->
 <rect width="800" height="520" fill="#1a2332"/>
 <rect width="800" height="520" fill="url(#grid)"/>
 
-<!-- 省界轮廓（简化的新疆轮廓示意） -->
-<path d="M120 20 L280 10 L450 30 L620 80 L720 150 L760 250 L750 380 L700 470 L580 500 L400 490 L220 480 L100 430 L50 320 L60 180 L90 80 Z" 
+<!-- 新疆轮廓 -->
+<path d="M120 20 L280 10 L450 30 L620 80 L720 150 L760 250 L750 380 L700 470 L580 500 L400 490 L220 480 L100 430 L50 320 L60 180 L90 80 Z"
   fill="#ffffff04" stroke="#334155" stroke-width="1.5"/>
 
-<!-- ====== 每日路线 ====== -->
-<!-- D1: 塔城→裕民→托里 (黄色) -->
-<path d="M170 95 L168 130 L195 175" stroke="#f59e0b" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" filter="url(#glow)">
-<title>D1: 塔城→裕民→托里 (145km)</title>
-</path>
+<!-- ====== 每日路线（新版） ====== -->
+<!-- D1: 塔城→裕民·小白杨哨所 (黄色) -->
+<path d="M170 95 L165 130" stroke="#f59e0b" stroke-width="4.5" fill="none" stroke-linecap="round" opacity="0.9" filter="url(#glow)">
+<title>D1: 塔城机场→裕民(小白杨哨所) · 下午半天 · 45km</title></path>
 
-<!-- D2: 托里→精河 (橙色) -->
-<path d="M195 175 L295 235" stroke="#f97316" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" filter="url(#glow)">
-<title>D2: 托里→精河 (232km)</title>
-</path>
+<!-- D2: 裕民→巴尔鲁克山→阿拉山口→精河 (橙色) -->
+<path d="M165 130 L175 148 L255 215 L295 235" stroke="#f97316" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" filter="url(#glow)">
+<title>D2: 裕民→巴尔鲁克山→阿拉山口口岸→精河县 · 五一当天 · ~250km</title></path>
 
-<!-- D3: 精河→赛里木湖 (绿色) -->
-<path d="M295 235 L350 285" stroke="#22c55e" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" filter="url(#glow)">
-<title>D3: 精河→赛里木湖 (101km)</title>
-</path>
+<!-- D3: 精河→赛里木湖→果子沟→清水河 (绿色) -->
+<path d="M295 235 L350 285 L368 298 L390 308" stroke="#22c55e" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" filter="url(#glow)">
+<title>D3: 精河→赛里木湖(环湖)→果子沟大桥→清水河镇 · 全天亮点 · ~120km</title></path>
 
-<!-- D4: 赛湖→特克斯 (蓝色) -->
-<path d="M350 285 L455 330" stroke="#3b82f6" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" filter="url(#glow)">
-<title>D4: 赛湖→特克斯 (342km)</title>
-</path>
+<!-- D4: 清水河→霍尔果斯→图开沙漠→伊宁(喀赞其) (蓝色) -->
+<path d="M390 308 L430 315 L468 325 L555 340" stroke="#3b82f6" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" filter="url(#glow)">
+<title>D4: 清水河→霍尔果斯口岸→图开沙漠→伊宁(喀赞其) · ~110km</title></path>
 
-<!-- D5: 特克斯→新源 (紫色) -->
-<path d="M455 330 L495 265" stroke="#8b5cf6" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" filter="url(#glow)">
-<title>D5: 特克斯→新源 (153km)</title>
-</path>
+<!-- D5: 伊宁→托乎拉苏草原→天山花海→伊宁 (紫色环线) -->
+<path d="M555 340 L535 295 L445 285 L555 340" stroke="#8b5cf6" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" filter="url(#glow)" stroke-dasharray="8,4">
+<title>D5: 伊宁→托乎拉苏草原→天山花海(薰衣草)→伊宁 · 环线返回 · ~130km</title></path>
 
-<!-- D6: 新源→伊宁 (粉色) -->
-<path d="M495 265 L555 340" stroke="#ec4899" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" filter="url(#glow)">
-<title>D6: 新源→伊宁 (188km)</title>
-</path>
+<!-- D6: 伊宁市区短途→机场还车 (粉色) -->
+<path d="M555 340 L580 330 L585 310" stroke="#ec4899" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.7" stroke-dasharray="4,3">
+<title>D6: 伊宁市区→汉人街/六星街→机场还车 · 上午收尾</title></path>
 
-<!-- ====== 城市标记点 + 标签 ====== -->
+<!-- ====== 城市标记点 + 标签（新版） ====== -->
 
-<!-- 塔城 起点 -->
+<!-- ✈️ 塔城 起点（机场落地） -->
 <g class="city-point">
-<circle cx="170" cy="95" r="12" fill="#f59e0b" stroke="#fff" stroke-width="2.5"/>
-<text x="170" y="99" text-anchor="middle" fill="#000" font-size="11" font-weight="bold">🚗</text>
-<text x="170" y="75" text-anchor="middle" fill="#f59e0b" font-size="13" font-weight="bold">塔城</text>
-<text x="170" y="89" text-anchor="middle" fill="#94a3b8" font-size="10">(起点·4/30)</text>
+<circle cx="170" cy="95" r="13" fill="#f59e0b" stroke="#fff" stroke-width="2.5"/>
+<text x="170" y="99" text-anchor="middle" fill="#000" font-size="11" font-weight="bold">✈️</text>
+<text x="170" y="74" text-anchor="middle" fill="#f59e0b" font-size="13" font-weight="bold">塔城</text>
+<text x="170" y="88" text-anchor="middle" fill="#94a3b8" font-size="9">(✈️成都飞入·13:30落)</text>
 </g>
 
-<!-- 裕民县 -->
+<!-- 裕民县 + 小白杨哨所 -->
 <g class="city-point">
-<circle cx="168" cy="130" r="8" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
-<text x="148" y="134" text-anchor="end" fill="#e2e8f0" font-size="11.5" font-weight="bold">裕民县</text>
+<circle cx="165" cy="130" r="10" fill="#22c55e" stroke="#fff" stroke-width="2"/>
+<text x="165" y="134" text-anchor="middle" fill="#000" font-size="10" font-weight="bold">🌲</text>
+<text x="145" y="125" text-anchor="end" fill="#22c55e" font-size="12" font-weight="bold">裕民县</text>
+<text x="145" y="138" text-anchor="end" fill="#94a3b8" font-size="9">🎵小白杨哨所 · 🏨D1宿</text>
 </g>
 
-<!-- 托里县 -->
+<!-- 巴尔鲁克山 -->
 <g class="city-point">
-<circle cx="195" cy="175" r="8" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
-<text x="215" y="172" text-anchor="start" fill="#e2e8f0" font-size="11.5" font-weight="bold">托里县</text>
-<text x="215" y="186" text-anchor="start" fill="#94a3b8" font-size="10">🏨 D1宿</text>
+<circle cx="175" cy="148" r="7" fill="#3b82f6" stroke="#fff" stroke-width="1.5"/>
+<text x="188" y="145" text-anchor="start" fill="#e2e8f0" font-size="11" font-weight="bold">巴尔鲁克山</text>
+<text x="188" y="157" text-anchor="start" fill="#94a3b8" font-size="9">🌹野生玫瑰谷 · D2上午</text>
+</g>
+
+<!-- 阿拉山口口岸 -->
+<g class="city-point">
+<circle cx="255" cy="215" r="8" fill="#ef4444" stroke="#fff" stroke-width="2"/>
+<text x="255" y="219" text-anchor="middle" fill="#000" font-size="9" font-weight="bold">🚧</text>
+<text x="235" y="208" text-anchor="end" fill="#ef4444" font-size="11" font-weight="bold">阿拉山口</text>
+<text x="235" y="220" text-anchor="end" fill="#94a3b8" font-size="9">🇨🇳中哈国门 · D2下午</text>
 </g>
 
 <!-- 精河县 -->
 <g class="city-point">
 <circle cx="295" cy="235" r="8" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
 <text x="275" y="248" text-anchor="end" fill="#e2e8f0" font-size="11.5" font-weight="bold">精河县</text>
-<text x="275" y="262" text-anchor="end" fill="#94a3b8" font-size="10">🏨 D2宿 · 凉皮!</text>
+<text x="275" y="262" text-anchor="end" fill="#94a3b8" font-size="10">🍜凉皮必吃! · 🏨D2宿</text>
 </g>
 
-<!-- 赛里木湖 (亮点!) -->
+<!-- 赛里木湖 (核心亮点!!) -->
 <g class="city-point">
-<circle cx="350" cy="285" r="14" fill="#22c55e" stroke="#fff" stroke-width="2.5"/>
-<text x="350" y="290" text-anchor="middle" fill="#000" font-size="13" font-weight="bold">🌟</text>
-<text x="375" y="278" text-anchor="start" fill="#22c55e" font-size="12.5" font-weight="bold">赛里木湖</text>
-<text x="375" y="293" text-anchor="start" fill="#94a3b8" font-size="10">门票¥70 · D3亮点</text>
+<circle cx="350" cy="285" r="15" fill="#22c55e" stroke="#fff" stroke-width="2.5"/>
+<text x="350" y="290" text-anchor="middle" fill="#000" font-size="14" font-weight="bold">💎</text>
+<text x="376" y="276" text-anchor="start" fill="#22c55e" font-size="13" font-weight="bold">赛里木湖</text>
+<text x="376" y="291" text-anchor="start" fill="#94a3b8" font-size="10">🌊大西洋最后一滴眼泪 · D3全天</text>
 </g>
 
-<!-- 特克斯八卦城 -->
+<!-- 果子沟大桥 -->
 <g class="city-point">
-<circle cx="455" cy="330" r="8" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
-<text x="478" y="325" text-anchor="start" fill="#e2e8f0" font-size="11.5" font-weight="bold">特克斯(八卦城)</text>
-<text x="478" y="340" text-anchor="start" fill="#94a3b8" font-size="10">🏨 D4宿 · 夜市</text>
+<circle cx="368" cy="298" r="6" fill="#f59e0b" stroke="#fff" stroke-width="1.5"/>
+<text x="382" y="295" text-anchor="start" fill="#f59e0b" font-size="10.5" font-weight="bold">🌉果子沟</text>
+<text x="382" y="306" text-anchor="start" fill="#94a3b8" font-size="9">亚洲最大公路隧道群</text>
 </g>
 
-<!-- 新源县 -->
+<!-- 清水河镇(霍城方向) -->
 <g class="city-point">
-<circle cx="495" cy="265" r="8" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
-<text x="515" y="258" text-anchor="start" fill="#e2e8f0" font-size="11.5" font-weight="bold">新源县</text>
-<text x="515" y="273" text-anchor="start" fill="#94a3b8" font-size="10">🏨 D5宿</text>
+<circle cx="390" cy="308" r="7" fill="#3b82f6" stroke="#fff" stroke-width="1.5"/>
+<text x="400" y="305" text-anchor="start" fill="#e2e8f0" font-size="11" font-weight="bold">清水河镇</text>
+<text x="400" y="317" text-anchor="start" fill="#94a3b8" font-size="9">🏨 D3宿</text>
 </g>
 
-<!-- 伊宁 终点 -->
+<!-- 霍尔果斯口岸 -->
 <g class="city-point">
-<circle cx="555" cy="340" r="12" fill="#22c55e" stroke="#fff" stroke-width="2.5"/>
-<text x="555" y="344" text-anchor="middle" fill="#000" font-size="11" font-weight="bold">🏁</text>
-<text x="555" y="370" text-anchor="middle" fill="#22c55e" font-size="13" font-weight="bold">伊宁市</text>
-<text x="555" y="384" text-anchor="middle" fill="#94a3b8" font-size="10">(终点·5/6)</text>
+<circle cx="430" cy="315" r="9" fill="#ef4444" stroke="#fff" stroke-width="2"/>
+<text x="430" y="319" text-anchor="middle" fill="#000" font-size="9" font-weight="bold">🏢</text>
+<text x="448" y="310" text-anchor="start" fill="#ef4444" font-size="11.5" font-weight="bold">霍尔果斯</text>
+<text x="448" y="323" text-anchor="start" fill="#94a3b8" font-size="9">🛍️中哈合作中心 · D4上午</text>
 </g>
 
-<!-- 已关闭景区标记 -->
-<!-- 夏塔 -->
+<!-- 图开沙漠 -->
+<g class="city-point">
+<circle cx="468" cy="325" r="7" fill="#eab308" stroke="#fff" stroke-width="1.5"/>
+<text x="468" y="329" text-anchor="middle" fill="#000" font-size="9" font-weight="bold">🏜️</text>
+<text x="483" y="320" text-anchor="start" fill="#eab308" font-size="11" font-weight="bold">图开沙漠</text>
+<text x="483" y="332" text-anchor="start" fill="#94a3b8" font-size="9">新疆唯一绿洲沙漠 · D4中午</text>
+</g>
+
+<!-- 伊宁市 终点（喀赞其+多晚住宿） -->
+<g class="city-point">
+<circle cx="555" cy="340" r="13" fill="#ec4899" stroke="#fff" stroke-width="2.5"/>
+<text x="555" y="344" text-anchor="middle" fill="#000" font-size="11" font-weight="bold">🏠</text>
+<text x="555" y="370" text-anchor="middle" fill="#ec4899" font-size="13" font-weight="bold">伊宁市</text>
+<text x="555" y="384" text-anchor="middle" fill="#94a3b8" font-size="10">(🏨D4-D5宿 · ✈️5/6 16:00飞离)</text>
+</g>
+
+<!-- 托乎拉苏草原 -->
+<g class="city-point">
+<circle cx="535" cy="295" r="8" fill="#22c55e" stroke="#fff" stroke-width="2"/>
+<text x="535" y="299" text-anchor="middle" fill="#000" font-size="9" font-weight="bold">⛰️</text>
+<text x="550" y="286" text-anchor="start" fill="#22c55e" font-size="11.5" font-weight="bold">托乎拉苏草原</text>
+<text x="550" y="298" text-anchor="start" fill="#94a3b8" font-size="9">🌿空中草原 · D5上午</text>
+</g>
+
+<!-- 天山花海(霍城薰衣草) -->
+<g class="city-point">
+<circle cx="445" cy="285" r="8" fill="#a855f7" stroke="#fff" stroke-width="2"/>
+<text x="445" y="289" text-anchor="middle" fill="#000" font-size="9" font-weight="bold">💐</text>
+<text x="420" y="280" text-anchor="end" fill="#a855f7" font-size="11.5" font-weight="bold">天山花海</text>
+<text x="420" y="292" text-anchor="end" fill="#94a3b8" font-size="9">🌸万亩薰衣草 · D5下午</text>
+</g>
+
+<!-- ⚠️ 标记：花期风险 -->
 <g class="closed-spot">
-<line x1="395" y1="355" x2="415" y2="375" stroke="#ef4444" stroke-width="3"/>
-<line x1="415" y1="355" x2="395" y2="375" stroke="#ef4444" stroke-width="3"/>
-<circle cx="405" cy="365" r="15" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
-<text x="405" y="392" text-anchor="middle" fill="#ef4444" font-size="10.5" font-weight="bold">夏塔 ❌</text>
+<line x1="435" y1="275" x2="455" y2="295" stroke="#eab308" stroke-width="2"/>
+<line x1="455" y1="275" x2="435" y2="295" stroke="#eab308" stroke-width="2"/>
+<text x="445" y="270" text-anchor="middle" fill="#eab308" font-size="9" font-weight="bold">⚠️ 5月初花期未至?</text>
 </g>
 
-<!-- 那拉提 -->
-<g class="closed-spot">
-<line x1="585" y1="245" x2="605" y2="265" stroke="#ef4444" stroke-width="3"/>
-<line x1="605" y1="245" x2="585" y2="265" stroke="#ef4444" stroke-width="3"/>
-<circle cx="595" cy="255" r="15" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
-<text x="595" y="282" text-anchor="middle" fill="#ef4444" font-size="10.5" font-weight="bold">那拉提 ⚠️</text>
-</g>
+<!-- 图例 -->
+<text x="650" y="32" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">每日路线</text>
+<rect x="598" y="44" width="24" height="4" rx="2" fill="#f59e0b"/><text x="628" y="49" fill="#94a3b8" font-size="9.5">D1 塔城→裕民</rect>
+<rect x="598" y="57" width="24" height="4" rx="2" fill="#f97316"/><text x="628" y="62" fill="#94a3b8" font-size="9.5">D2 裕民→阿拉山口→精河</rect>
+<rect x="598" y="70" width="24" height="4" rx="2" fill="#22c55e"/><text x="628" y="75" fill="#94a3b8" font-size="9.5">D3 精河→赛湖→清水河</rect>
+<rect x="692" y="44" width="24" height="4" rx="2" fill="#3b82f6"/><text x="722" y="49" fill="#94a3b8" font-size="9.5">D4 清水河→霍尔果斯→伊宁</rect>
+<rect x="692" y="57" width="24" height="4" rx="2" fill="#8b5cf6"/><text x="722" y="62" fill="#94a3b8" font-size="9.5">D5 伊宁→托乎拉苏→花海</rect>
+<rect x="692" y="70" width="24" height="4" rx="2" fill="#ec4899"/><text x="722" y="75" fill="#94a3b8" font-size="9.5">D6 市区收尾·还车返程</rect>
 
-<!-- 方向指示箭头 -->
-<defs>
-<marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-<path d="M0,0 L0,6 L8,3 z" fill="#f59e0b" opacity="0.7"/>
-</marker>
-</defs>
-
-<!-- 图例标题 -->
-<text x="650" y="35" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">每日路线</text>
-<rect x="600" y="48" width="25" height="4" rx="2" fill="#f59e0b"/><text x="632" y="53" fill="#94a3b8" font-size="10">D1 塔城→托里</text>
-<rect x="600" y="62" width="25" height="4" rx="2" fill="#f97316"/><text x="632" y="67" fill="#94a3b8" font-size="10">D2 托里→精河</text>
-<rect x="600" y="76" width="25" height="4" rx="2" fill="#22c55e"/><text x="632" y="81" fill="#94a3b8" font-size="10">D3 精河→赛湖</text>
-<rect x="692" y="48" width="25" height="4" rx="2" fill="#3b82f6"/><text x="724" y="53" fill="#94a3b8" font-size="10">D4 赛湖→特克斯</text>
-<rect x="692" y="62" width="25" height="4" rx="2" fill="#8b5cf6"/><text x="724" y="67" fill="#94a3b8" font-size="10">D5 特克斯→新源</text>
-<rect x="692" y="76" width="25" height="4" rx="2" fill="#ec4899"/><text x="724" y="81" fill="#94a3b8" font-size="10">D6 新源→伊宁</text>
-
-<!-- 总里程标注 -->
-<rect x="600" y="96" width="185" height="36" rx="8" fill="rgba(245,158,11,.1)" stroke="#f59e0b" stroke-width="1"/>
-<text x="692" y="118" text-anchor="middle" fill="#f59e0b" font-size="13" font-weight="bold">📏 总计 ~1161km · 6天</text>
+<!-- 总里程 -->
+<rect x="596" y="88"192" height="34" rx="8" fill="rgba(245,158,11,.1)" stroke="#f59e0b" stroke-width="1"/>
+<text x="692" y="110" text-anchor="middle" fill="#f59e0b" font-size="12.5" font-weight="bold">📏 总计 ~700km · 6天 · G219+G30</text>
 
 <!-- 比例尺 -->
 <line x1="30" y1="495" x2="130" y2="495" stroke="#94a3b8" stroke-width="1.5"/>
 <line x1="30" y1="491" x2="30" y2="499" stroke="#94a3b8" stroke-width="1.5"/>
 <line x1="130" y1="491" x2="130" y2="499" stroke="#94a3b8" stroke-width="1.5"/>
 <text x="80" y="488" text-anchor="middle" fill="#94a3b8" font-size="10">~100km</text>
-<text x="80" y="512" text-anchor="middle" fill="#475569" font-size="9">示意图，非精确比例</text>
+<text x="80" y="512" text-anchor="middle" fill="#475569" font-size="9">示意图，非精确比例 · 2026版新路线</text>
 </svg>
 </div>
 <div class="map-legend">
@@ -254,10 +270,10 @@ footer{text-align:center;padding:20px;color:var(--text2);font-size:12px;margin-t
 
 <!-- Route Summary Stats -->
 <div class="route-summary">
-<div class="rs-item"><div class="rs-num">~1161</div><div class="rs-label">总公里(km)</div></div>
+<div class="rs-item"><div class="rs-num">~700</div><div class="rs-label">总公里(km)</div></div>
 <div class="rs-item"><div class="rs-num">6</div><div class="rs-label">天数</div></div>
-<div class="rs-item"><div class="rs-num">7</div><div class="rs-label">城市/站点</div></div>
-<div class="rs-item"><div class="rs-num">~¥3500</div><div class="rs-label">预估人均花费</div></div>
+<div class="rs-item"><div class="rs-num">12+</div><div class="rs-label">景点/站点</div></div>
+<div class="rs-item"><div class="rs-num">~¥3800</div><div class="rs-label">预估人均花费</div></div>
 </div>
 
 <!-- Tabs -->
@@ -273,90 +289,100 @@ footer{text-align:center;padding:20px;color:var(--text2);font-size:12px;margin-t
 <div id="panel-route" class="panel active">
 
 <div class="card">
-<div class="card-title"><span>📊</span> 路线合理性评估</div>
+<div class="card-title"><span>📊</span> 路线合理性评估（2026版·航班+自驾）</div>
 <table>
 <tr><th>评估项</th><th>结论</th><th>说明</th></tr>
-<tr><td><strong>总里程</strong></td><td style="color:var(--green)">✅ 合理</td><td>6天1161km，日均~193km，节奏舒适不赶路</td></tr>
-<tr><td><strong>单日最长</strong></td><td style="color:var(--yellow)">⚠️ Day4</td><td>博乐→特克斯 342km，约4.5h驾驶，建议早出发</td></tr>
-<tr><td><strong>G219段</strong></td><td style="color:var(--green)">✅ 推荐</td><td>塔城→托里段G219风景绝美，路况好</td></tr>
-<tr><td><strong>精伊牧道</strong></td><td style="color:var(--yellow)">⚠️ 看当天</strong></td><td>非铺装路面需SUV；不通则走G30高速（+50km）</td></tr>
-<tr><td><strong>Day5-Day6</strong></td><td style="color:var(--green)">✅ 很轻松</strong></td><td>特克斯→新源→伊宁仅341km，两天很充裕</td></tr>
-<tr><td><strong>五一住宿</strong></td><td style="color:var(--red)">❌ 需提前订</strong></td><td>途牛数据显示五一期间房源紧张，价格正常未暴涨（当前查询）</td></tr>
+<tr><td><strong>总里程</strong></td><td style="color:var(--green)">✅ 非常轻松</td><td>6天~700km，日均仅~117km，节奏舒适</td></tr>
+<tr><td><strong>航班衔接</strong></td><td style="color:var(--green)">✅ 合理</td><td>成都飞塔城13:30落/提车14:30；伊宁飞成都16:00/还车13:00</td></tr>
+<tr><td><strong>单日最长</strong></td><td style="color:var(--yellow)">⚠️ D2 五一</td><td>裕民→阿拉山口→精河 ~250km，五一当天可能堵车</td></tr>
+<tr><td><strong>D3 赛里木湖</strong></td><td style="color:var(--green)">✅ 全天充裕</td><td>精河→赛湖仅101km，环湖+果子沟时间非常够</td></tr>
+<tr><td><strong>G219+G30</strong></td><td style="color:var(--green)">✅ 路况好</td><td>G219塔城段风景绝美；G30连霍高速全程柏油路</td></tr>
+<tr><td><strong>D5 环线</strong></td><td style="color:var(--green)">✅ 灵活</td><td>伊宁→托乎拉苏→天山花海→伊宁，可按体力调整</td></tr>
+<tr><td><strong>五一风险</strong></td><td style="color:var(--red)">⚠️ 需注意</td><td>5/1-3景点人流大；霍尔果斯口岸可能排队；建议早出发</td></tr>
+<tr><td><strong>花期风险</strong></td><td style="color:var(--yellow)">⚠️ 5月初偏早</td><td>天山花海(薰衣草)6月中才盛；托乎拉苏草原5月初刚返青</td></tr>
 </table>
 </div>
 
 <!-- Daily Routes -->
-<div class="section-title"><span>📍 每日详细行程</span><span class="line"></span></div>
+<div class="section-title"><span>📍 每日详细行程（航班+自驾版）</span><span class="line"></span></div>
 
 <div class="day-card">
-<div class="day-header"><div><span class="day-num">1</span>&nbsp;<span class="day-title">4/30 塔城 → 裕民县 → 托里</span></div><span class="day-km">69 + 76 = 145km · ~3h</div></div>
+<div class="day-header"><div><span class="day-num">1</span>&nbsp;<span class="day-title">4/30（四）✈️ 塔城落地 → 裕民县 · 小白杨哨所</span></div><span class="day-km">69 + 76 = ~45km · 半天 · 提车日</div></div>
 <ul class="day-body">
-<li>上午从<strong>塔城市区</strong>出发，走S221转G219向南</li>
-<li><strong>裕民县</strong>(69km)：打卡巴尔鲁克山，午餐吃风干肉+列巴</li>
-<li>下午继续G219到<strong>托里县</strong>(76km)，约1h车程</li>
-<li>🏨 住宿：托里县城（小县城无大型连锁酒店，建议当地宾馆）</li>
-<li>💰 预估：油费¥80 + 午餐¥40 + 晚餐¥40 + 住宿¥150 = <strong>¥310</strong></li>
+<li><strong>09:00 成都起飞</strong> → 约13:30-14:00 塔城落地（飞行约4.5h）</li>
+<li><strong>14:30 塔城机场提车</strong>（租车周期：4/30 14:30 → 5/6 13:00 = 6天整）</li>
+<li>S221省道向南 → <strong>裕民县</strong>（~45km / ~1h车程）</li>
+<li><strong>小白杨哨所</strong> 🎵 — 歌曲《小白杨》发源地！边防精神象征，打卡必去</li>
+<li>裕民县晚餐 + 适应环境</li>
+<li>🏨 住宿：<strong>裕民县</strong></li>
+<li>💰 预估：油费¥35 + 餐饮¥60 + 住宿¥200 = <strong>~¥295</strong></li>
 </ul>
 </div>
 
 <div class="day-card">
 <div class="day-header"><div><span class="day-num">2</span>&nbsp;<span class="day-title">5/1 托里 → 精河县</span></div><span class="day-km">232km · ~3.5h</div></div>
 <ul class="day-body">
-<li>托里出发走G3015转连霍高速/G30到<strong>精河县</strong></li>
-<li>中午到精河 — <strong style="color:var(--accent)">精河凉皮必吃！</strong>（¥15/碗）</li>
-<li>下午确认精伊牧道通行状态，如可通则前往入口探路</li>
-<li>🏨 住宿：精河县（途牛有7家酒店可选）</li>
-<li>💰 预估：油费¥130 + 过路费¥40 + 餐饮¥80 + 住宿¥450 = <strong>¥700</strong></li>
+<li>⚠️ <strong>五一黄金周第一天</strong>，建议8:00前出发避开人流高峰</li>
+<li>上午：<strong>巴尔鲁克山风景区</strong> — 高山草原、吐尔加辽丘陵草原、<strong>野生玫瑰谷</strong>🌹</li>
+<li>中午经S221→G3015转G30前往<strong>阿拉山口口岸</strong></li>
+<li><strong>阿拉山口</strong> 🚧 — 中哈边境国门，远眺哈萨克斯坦。⚠️ 五一可能排队，预留1-2h</li>
+<li>下午G30到<strong>精河县</strong> — <strong style="color:var(--accent)">精河凉皮必吃！！</strong>（¥12-18/碗）</li>
+<li>🏨 住宿：<strong>精河县</strong></li>
+<li>💰 预估：油费¥140 + 过路费¥50 + 门票¥80(巴尔鲁克) + 餐饮¥100 + 住宿¥450 = <strong>~¥820</strong></li>
 </ul>
 </div>
 
 <div class="day-card">
 <div class="day-header"><div><span class="day-num">3</span>&nbsp;<span class="day-title">5/2 精河 → 赛里木湖（全天亮点🌟）</span></div><span class="day-km">101km · ~1.5h</div></div>
 <ul class="day-body">
-<li>早上出发去<strong>赛里木湖</strong>！全程最期待的一天</li>
-<li>如果精伊牧道通了：穿越牧道直达（风景炸裂但颠簸3h+）</li>
-<li>如果不通：走G30高速经博乐到赛湖（平稳快速）</li>
-<li><strong>赛里木湖环湖</strong>：东门进→南门出，沿途停车拍照</li>
-<li><strong>果子沟大桥</strong>观景台（免费，必打卡！）</li>
-<li>🏨 住清水河镇或博乐市（距赛湖30min）</li>
-<li>💰 预估：门票¥70 + 油费¥60 + 餐饮¥100 + 住宿¥500 = <strong>¥730</strong></li>
+<li>早上走G30高速 → <strong>赛里木湖</strong>（~101km / ~1.5h）</li>
+<li><strong style="color:#22c55e;font-size:15px">💎 赛里木湖 — "大西洋最后一滴眼泪"</strong> 核心亮点！</li>
+<li>环湖推荐：东门进 → 克勒涌珠 → 松树头观台 → 南门出</li>
+<li>门票¥70 + 区间车¥75（或只买门票¥70环湖公路自驾）</li>
+<li><strong>果子沟大桥</strong> 🌉 — 亚洲最大公路隧道群！多个免费观景台</li>
+<li>下山住清水河镇（距赛湖约30min）</li>
+<li>🏨 住宿：<strong>清水河镇</strong>（离霍尔果斯近方便明日）</li>
+<li>💰 预估：门票¥145 + 油费¥70 + 餐饮¥120 + 住宿¥480 = <strong>~¥815</strong></li>
 </ul>
 </div>
 
 <div class="day-card">
 <div class="day-header"><div><span class="day-num">4</span>&nbsp;<span class="day-title">5/3 果子沟 → 特克斯八卦城</span></div><span class="day-km">342km · ~4.5h ⚠️ 最长一天</div></div>
 <ul class="day-body">
-<li>⚠️ 今天路程最长，<strong>建议8点前出发</strong></li>
-<li>果子沟多个观景台补拍晨光照片</li>
-<li>上连霍高速→清伊高速→G578到<strong>特克斯县</strong></li>
-<li>下午逛<strong>八卦城</strong>（整个城市就是八卦形！）— 不需要导航</li>
-<li>特克斯夜市：<strong>羊排揪片子</strong>（¥35/份）、手工酸奶</li>
-<li>🏨 住宿：特克斯县城</li>
-<li>💰 预估：油费¥190 + 过路费¥80 + 餐饮¥100 + 住宿¥500 = <strong>¥870</strong></li>
+<li>上午：<strong>霍尔果斯口岸</strong> — 中哈合作中心（免税购物）、第六代国界碑</li>
+<li>🛍️ 免税区可买哈国巧克力、蜂蜜等，记得带身份证</li>
+<li>中午：<strong>图开沙漠</strong> 🏜️ — 新疆唯一绿洲中的沙漠！奇特景观反差</li>
+<li>下午抵达<strong>伊宁市</strong> — 进入伊犁河谷核心区！</li>
+<li><strong>喀赞其民俗旅游区</strong> 🏠 — 蓝房子街区！手工冰淇淋（¥5-8）、马车巡游、维吾尔风情</li>
+<li>晚上逛伊宁：汉人街大巴扎、手抓饭（¥38）、卡瓦斯</li>
+<li>🏨 住宿：<strong>伊宁市</strong>（D5也住这不用换！）</li>
+<li>💰 预估：油费¥65 + 餐饮¥130 + 住宿¥500 = <strong>~¥695</strong></li>
 </ul>
 </div>
 
 <div class="day-card">
 <div class="day-header"><div><span class="day-num">5</span>&nbsp;<span class="day-title">5/4 特克斯 → 库尔德宁 → 新源</span></div><span class="day-km">153km · ~2.5h</div></div>
 <ul class="day-body">
-<li>轻松的一天！先查<strong>库尔德宁官方开园公告</strong></li>
-<li>开了就去库尔德宁（半天足够）；不开就直接去新源县</li>
-<li>替代方案：那拉提镇周边探索野景（那拉提本身可能没开）</li>
-<li>新源县可以好好休息，为最后一天蓄力</li>
-<li>🏨 住宿：新源县（有全季¥459起、如家商旅¥313起）</li>
-<li>💰 预估：油费¥85 + 门票(如有)¥100 + 餐饮¥80 + 住宿¥400 = <strong>¥665</strong></li>
+<li>以伊宁为基地的<strong>一日环线</strong>，早出晚归不换酒店</li>
+<li>上午：<strong>托乎拉苏草原</strong> ⛰️（距伊宁~50km / ~1h）— 空中草原、河谷风光、哈萨克毡房</li>
+<li>⚠️ 5月初草原刚返青，草色嫩黄，别期待盛夏景象</li>
+<li>下午：<strong>天山花海</strong> 💐（霍城县芦草沟镇，距伊宁~60km）— 万亩薰衣草基地</li>
+<li>⚠️ <strong style="color:var(--yellow)">花期预警：</strong>薰衣草通常6月中旬盛开！5月初只能看到幼苗田</li>
+<li>替代：不想看"绿色麦田"可在伊宁多逛（六星街/丝路之光夜市/林则徐纪念馆）</li>
+<li>🏨 住宿：<strong>伊宁市</strong>（连续第二晚）</li>
+<li>💰 预估：油费¥75 + 门票¥80(托乎拉苏) + 餐饮¥130 + 住宿¥500 = <strong>~¥785</strong></li>
 </ul>
 </div>
 
 <div class="day-card">
 <div class="day-header"><div><span class="day-num">6</span>&nbsp;<span class="day-title">5/6 新源 → 伊宁市（收尾）</span></div><span class="day-km">188km · ~2.5h</div></div>
 <ul class="day-body">
-<li>睡个懒觉出发~ 开往<strong>伊宁市</strong></li>
-<li><strong>喀赞其民俗村</strong>：蓝房子街区 + 伊宁冰淇淋（¥5）</li>
-<li>手抓饭（¥38）、面肺子（¥25）、卡瓦斯（¥8）</li>
-<li>下午在伊宁市区闲逛，买些特产准备返程</li>
-<li>🏨 如需多住一晚：伊宁有亚朵¥631起、全季¥465起、桔子¥425起</li>
-<li>💰 预估：油费¥105 + 餐饮¥120 + （住宿¥450）= <strong>¥675</strong>（不含返程）</li>
+<li>睡个懒觉~ 最后半天悠闲度过</li>
+<li>上午：<strong>六星街</strong>（俄罗斯风情+手风琴博物馆）/ 林则徐纪念馆 / 汉人街买特产</li>
+<li><strong>13:00 伊宁机场还车</strong>（留足检查时间！）</li>
+<li><strong>16:00 伊宁起飞</strong> → 约20:00 成都落地</li>
+<li>🏨 无需住宿（当晚回成都）</li>
+<li>💰 预估：餐饮¥60 = <strong>~¥60</strong>（不含机票和特产购物）</li>
 </ul>
 </div>
 </div><!-- end panel-route -->
@@ -364,59 +390,45 @@ footer{text-align:center;padding:20px;color:var(--text2);font-size:12px;margin-t
 <!-- Panel: Hotels -->
 <div id="panel-hotel" class="panel">
 
-<p style="color:var(--text2);font-size:13.5px;margin-bottom:14px;">📌 以下数据来自途牛酒店搜索（2026年五一假期实时报价），点击城市名查看该地所有酒店。</p>
+<p style="color:var(--text2);font-size:13.5px;margin-bottom:14px;">📌 以下为2026年五一假期各住宿点酒店参考（途牛数据+周边查询），<strong style="color:var(--accent)">建议提前预订！</strong>五一期间房源紧张。</p>
 
-<div class="section-title"><span>🏨</span> 精河县（Day2 住宿）— 7家可选</span><div class="line"></div></div>
+<div class="section-title"><span>🏨</span> 裕民县（D1 住宿·4/30）— 小县城</span><div class="line"></div></div>
+<div class="card">
+<p style="color:var(--text2);font-size:13px;margin-bottom:8px;">裕民县为小县城，无大型连锁酒店。建议选择当地口碑较好的宾馆/民宿，价格区间约 <strong style="color:var(--accent)">¥150-280/晚</strong>。</p>
+<div class="hotel-row"><span class="hotel-name">裕民当地宾馆（提前电话预订）</span><span class="hotel-star">经济型</span><span class="hotel-price">¥180-250起</span><span class="hotel-score">需确认</span></div>
+<p style="color:var(--text2);font-size:12px;margin-top:8px;">💡 备选：如裕民条件不满意，可考虑D1当天多开2h到精河县住</p>
+</div>
+
+<div class="section-title"><span>🏨</span> 精河县（D2 住宿·5/1 五一当晚）⚠️</span><div class="line"></div></div>
 <div class="card">
 <div class="hotel-row"><span class="hotel-name">玉强大酒店</span><span class="hotel-star">舒适型</span><span class="hotel-price">¥406起</span><span class="hotel-score">5分</span></div>
-<div class="hotel-row"><span class="hotel-name">星程酒店（团结北路店）</span><span class="hotel-star">高档型</span><span class="hotel-price">¥459起</span><span class="hotel-score">5分</span></div>
+<div class="hotel-row"><span class="hotel-name">星程酒店（团结北路店）</span><span class="hotel-star">高档型 ⭐推荐</span><span class="hotel-price">¥459起</span><span class="hotel-score">5分</span></div>
 <div class="hotel-row"><span class="hotel-name">全季酒店（博乐店）</span><span class="hotel-star">高档型</span><span class="hotel-price">¥487起</span><span class="hotel-score">5分</span></div>
-<div class="hotel-row"><span class="hotel-name">博乐夏尔希里大酒店</span><span class="hotel-star">豪华型</span><span class="hotel-price">¥507起</span><span class="hotel-score">5分</span></div>
-<div class="hotel-row"><span class="hotel-name">博乐希尔顿惠庭</span><span class="hotel-star">高档型 ⭐推荐</span><span class="hotel-price">¥540起</span><span class="hotel-score">5分</span></div>
+<div class="hotel-row"><span class="hotel-name">博乐希尔顿惠庭</span><span class="hotel-star">高档型 ⭐⭐</span><span class="hotel-price">¥540起</span><span class="hotel-score">5分</span></div>
 <div class="hotel-row"><span class="hotel-name">锦疆大酒店</span><span class="hotel-star">舒适型</span><span class="hotel-price">¥566起</span><span class="hotel-score">5分</span></div>
-<div class="hotel-row"><span class="hotel-name">中亚全纳酒店</span><span class="hotel-star">舒适型</span><span class="hotel-price">¥971起</span><span class="hotel-score">5分</span></div>
-<p style="color:var(--text2);font-size:12px;margin-top:8px;">💡 推荐：星程/全季 ¥450左右性价比高；希尔顿惠庭品质更好。五一期间目前未见大幅涨价。</p>
+<p style="color:var(--yellow);font-size:12px;margin-top:8px;">⚠️ 五一当晚价格可能上浮20-40%，建议尽快预订！</p>
 </div>
 
-<div class="section-title"><span>🏨</span> 清水河镇/博乐市（Day3 住宿）— 8家可选</span><div class="line"></div></div>
+<div class="section-title"><span>🏨</span> 清水河镇/霍城（D3 住宿·5/2）— 靠近赛湖+霍尔果斯</span><div class="line"></div></div>
 <div class="card">
-<div class="hotel-row"><span class="hotel-name">玉强大酒店</span><span class="hotel-star">舒适型</span><span class="hotel-price">¥406起</span><span class="hotel-score">5分</span></div>
-<div class="hotel-row"><span class="hotel-name">博乐大酒店</span><span class="hotel-star">舒适型</span><span class="hotel-price">¥436起</span><span class="hotel-score">5分</span></div>
+<div class="hotel-row"><span class="hotel-name">博乐大酒店</span><span class="hotel-star">舒适型 💰划算</span><span class="hotel-price">¥436起</span><span class="hotel-score">5分</span></div>
 <div class="hotel-row"><span class="hotel-name">星程酒店（团结北路店）</span><span class="hotel-star">高档型</span><span class="hotel-price">¥459起</span><span class="hotel-score">5分</span></div>
-<div class="hotel-row"><span class="hotel-name">博乐友好购物中心亚朵</span><span class="hotel-star">高档型</span><span class="hotel-price">¥518起</span><span class="hotel-score">暂无评分</span></div>
 <div class="hotel-row"><span class="hotel-name">全季酒店（博乐店）</span><span class="hotel-star">高档型</span><span class="hotel-price">¥495起</span><span class="hotel-score">5分</span></div>
-<div class="hotel-row"><span class="hotel-name">博乐夏尔希里大酒店</span><span class="hotel-star">豪华型</span><span class="hotel-price">¥514起</span><span class="hotel-score">5分</span></div>
-<div class="hotel-row"><span class="hotel-name">博乐希尔顿惠庭</span><span class="hotel-star">高档型 ⭐</span><span class="hotel-price">¥540起</span><span class="hotel-score">5分</span></div>
-<div class="hotel-row"><span class="hotel-name">中亚全纳酒店</span><span class="hotel-star">舒适型</span><span class="hotel-price">¥971起</span><span class="hotel-score">5分</span></div>
+<div class="hotel-row"><span class="hotel-name">博乐友好购物中心亚朵</span><span class="hotel-star">高档型 ⭐</span><span class="hotel-price">¥518起</span><span class="hotel-score">暂无评分</span></div>
+<div class="hotel-row"><span class="hotel-name">博乐希尔顿惠庭</span><span class="hotel-star">高档型 ⭐⭐</span><span class="hotel-price">¥540起</span><span class="hotel-score">5分</span></div>
 </div>
 
-<div class="section-title"><span>🏨</span> 特克斯县（Day4 住宿）— 8家可选</span><div class="line"></div></div>
-<div class="card">
-<div class="card-title" style="font-size:13px;color:var(--text2)">⚠️ 途牛返回结果中部分酒店位置可能匹配偏差（显示上海），以下为参考价格区间</div>
-<p style="color:var(--text2);font-size:13px;margin-top:8px;">特克斯县城酒店价格范围：<strong style="color:var(--accent)">¥330 - ¥900</strong>（参考周边数据）<br>推荐选择当地口碑较好的酒店/民宿，五一提前预订。</p>
-</div>
-
-<div class="section-title"><span>🏨</span> 新源县（Day5 住宿）— 7家可选</span><div class="line"></div></div>
-<div class="card">
-<div class="hotel-row"><span class="hotel-name">如家商旅（伊宁机场温州国际城店）</span><span class="hotel-star">高档型 💰划算</span><span class="hotel-price">¥313起</span><span class="hotel-score">5分</span></div>
-<div class="hotel-row"><span class="hotel-name">维也纳国际（奎屯天玺大厦独库公路店）</span><span class="hotel-star">高档型</span><span class="hotel-price">¥331起</span><span class="hotel-score">5分</span></div>
-<div class="hotel-row"><span class="hotel-name">全季酒店（新源县天鹅湖店）</span><span class="hotel-star">高档型 ⭐</span><span class="hotel-price">¥459起</span><span class="hotel-score">5分</span></div>
-<div class="hotel-row"><span class="hotel-name">桔子酒店（伊宁六星街景区店）</span><span class="hotel-star">高档型</span><span class="hotel-price">¥472起</span><span class="hotel-score">5分</span></div>
-<div class="hotel-row"><span class="hotel-name">全季酒店（伊宁机场店）</span><span class="hotel-star">高档型</span><span class="hotel-price">¥559起</span><span class="hotel-score">5分</span></div>
-<div class="hotel-row"><span class="hotel-name">库尔德宁云杉酒店</span><span class="hotel-star">高档型 🏔️景区内</span><span class="hotel-price">¥999起</span><span class="hotel-score">5分</span></div>
-<div class="hotel-row"><span class="hotel-name">那拉提金陵山庄</span><span class="hotel-star">豪华型 🏔️景区</span><span class="hotel-price">¥1113起</span><span class="hotel-score">5分</span></div>
-</div>
-
-<div class="section-title"><span>🏨</span> 伊宁市（Day6 / 多住一晚）— 8家可选</span><div class="line"></div></div>
+<div class="section-title"><span>🏨</span> 伊宁市（D4-D5 连住两晚·5/3-5/4）— 选择最多！</span><div class="line"></div></div>
 <div class="card">
 <div class="hotel-row"><span class="hotel-name">如家商旅（伊宁机场温州国际城店）</span><span class="hotel-star">💰最实惠</span><span class="hotel-price">¥299起</span><span class="hotel-score">5分</span></div>
+<div class="hotel-row"><span class="hotel-name">伊宁机场丽呈酒店</span><span class="hotel-star">高档型 🛫近机场</span><span class="hotel-price">¥340起</span><span class="hotel-score">5分</span></div>
 <div class="hotel-row"><span class="hotel-name">希岸酒店（飞机场路六星街店）</span><span class="hotel-star">高档型</span><span class="hotel-price">¥379起</span><span class="hotel-score">5分</span></div>
-<div class="hotel-row"><span class="hotel-name">伊宁机场丽呈酒店</span><span class="hotel-star">高档型</span><span class="hotel-price">¥340起</span><span class="hotel-score">5分</span></div>
-<div class="hotel-row"><span class="hotel-name">桔子酒店（六星街景区店）</span><span class="hotel-star">⭐ 性价比高</span><span class="hotel-price">¥425起</span><span class="hotel-score">5分</span></div>
+<div class="hotel-row"><span class="hotel-name">桔子酒店（六星街景区店）</span><span class="hotel-star">⭐ 近喀赞其</span><span class="hotel-price">¥425起</span><span class="hotel-score">5分</span></div>
 <div class="hotel-row"><span class="hotel-name">全季酒店（伊宁机场店）</span><span class="hotel-star">高档型</span><span class="hotel-price">¥465起</span><span class="hotel-score">5分</span></div>
 <div class="hotel-row"><span class="hotel-name">伊宁隆鑫国际酒店A座</span><span class="hotel-star">高档型</span><span class="hotel-price">¥476起</span><span class="hotel-score">5分</span></div>
-<div class="hotel-row"><span class="hotel-name">伊宁市行政服务中心广东路亚朵</span><span class="hotel-star">高档型 ⭐⭐</span><span class="hotel-price">¥631起</span><span class="hotel-score">5分</span></div>
+<div class="hotel-row"><span class="hotel-name">伊宁市行政服务中心广东路亚朵</span><span class="hotel-star">高档型 ⭐⭐ 推荐</span><span class="hotel-price">¥631起</span><span class="hotel-score">5分</span></div>
 <div class="hotel-row"><span class="hotel-name">伊宁市上海城解放西路亚朵</span><span class="hotel-star">豪华体验</span><span class="hotel-price">¥857起</span><span class="hotel-score">5分</span></div>
+<p style="color:var(--accent);font-size:12px;margin-top:8px;">💡 推荐桔子（近喀赞其+六星街）或亚朵；连订两晚可能享折扣。</p>
 </div>
 
 </div><!-- end panel-hotel -->
@@ -424,18 +436,18 @@ footer{text-align:center;padding:20px;color:var(--text2);font-size:12px;margin-t
 <!-- Panel: Money -->
 <div id="panel-money" class="panel">
 
-<div class="section-title"><span>💰</span> 6天自驾费用预算（单人）<span class="line"></span></div>
+<div class="section-title"><span>💰</span> 6天自驾费用预算（单人·2026版）<span class="line"></span></div>
 
 <div class="cost-grid">
-<div class="cost-item"><div class="cost-icon">⛽</div><div class="cost-label">油费(1161km)</div><div class="cost-val">~750</div><div class="cost-unit">元</div></div>
-<div class="cost-item"><div class="cost-icon">🛣️</div><div class="cost-label">过路费(高速段)</div><div class="cost-val">~300</div><div class="cost-unit">元</div></div>
-<div class="cost-item"><div class="cost-icon">🏨</div><div class="cost-label">住宿(5晚)</div><div class="cost-val">~2200</div><div class="cost-unit">元</div></div>
+<div class="cost-item"><div class="cost-icon">⛽</div><div class="cost-label">油费(~700km)</div><div class="cost-val">~450</div><div class="cost-unit">元</div></div>
+<div class="cost-item"><div class="cost-icon">🛣️</div><div class="cost-label">过路费(G30高速)</div><div class="cost-val">~120</div><div class="cost-unit">元</div></div>
+<div class="cost-item"><div class="cost-icon">🏨</div><div class="cost-label">住宿(5晚)</div><div class="cost-val">~2135</div><div class="cost-unit">元</div></div>
 <div class="cost-item"><div class="cost-icon">🍽️</div><div class="cost-label">餐饮(6天)</div><div class="cost-val">~600</div><div class="cost-unit">元</div></div>
-<div class="cost-item"><div class="cost-icon">🎫</div><div class="cost-label">门票(赛湖等)</div><div class="cost-val">~170</div><div class="cost-unit">元</div></div>
+<div class="cost-item"><div class="cost-icon">🎫</div><div class="cost-label">门票(赛湖+巴尔鲁克+托乎拉苏)</div><div class="cost-val">~305</div><div class="cost-unit">元</div></div>
 <div class="cost-item"><div class="cost-icon">🛒</div><div class="cost-label">零食/水/杂费</div><div class="cost-val">~200</div><div class="cost-unit">元</div></div>
 <div class="cost-item cost-total">
-<div><div class="label">🧾 预估总花费（单人）</div><div style="color:var(--text2);font-size:13px;margin-top:4px">不含往返大交通</div></div>
-<div class="amount">~4,220 <span style="font-size:16px;color:var(--text2);font-weight:400">元</span></div>
+<div><div class="label">🧾 预估总花费（单人）</div><div style="color:var(--text2);font-size:13px;margin-top:4px">不含往返机票+租车费</div></div>
+<div class="amount">~3,810 <span style="font-size:16px;color:var(--text2);font-weight:400">元</span></div>
 </div>
 </div>
 
@@ -443,28 +455,28 @@ footer{text-align:center;padding:20px;color:var(--text2);font-size:12px;margin-t
 <div class="card-title"><span>📋</span> 费用明细表</div>
 <table>
 <tr><th>日期</th><th>项目</th><th>金额</th><th>备注</th></tr>
-<tr><td>4/30 D1</td><td>油费+餐+宿(托里)</td><td>¥310</td><td>小县城住宿便宜</td></tr>
-<tr><td>5/1 D2</td><td>油费+路费+餐+宿(精河)</td><td>¥700</td><td>精河酒店¥450左右</td></tr>
-<tr><td>5/2 D3</td><td>油费+赛湖门票+餐+宿</td><td>¥730</td><td>赛湖门票¥70+车票¥75</td></tr>
-<tr><td>5/3 D4</td><td>油费+路费+餐+宿(特克斯)</td><td>¥870</td><td>最长驾驶日</td></tr>
-<tr><td>5/4 D5</td><td>油费+(门票)+餐+宿(新源)</td><td>¥665</td><td>轻松日，住宿¥400</td></tr>
-<tr><td>5/6 D6</td><td>油费+餐+宿(伊宁)</td><td>¥675</td><td>可当日返程则省住宿</td></tr>
-<tr style="background:rgba(245,158,11,.08)"><td colspan="2"><strong>合计（单人，含5晚住宿）</strong></td><td><strong style="color:var(--accent);font-size:16px">¥3,950</strong></td><td></td></tr>
-<tr style="background:rgba(59,130,246,.06)"><td colspan="2"><strong>合计（双人，含5晚住宿）</strong></td><td><strong style="color:var(--accent2);font-size:16px">~¥6,500</strong></td><td>住宿平摊省一半</td></tr>
+<tr><td>4/30 D1</td><td>油费+餐+宿(裕民)</td><td>¥295</td><td>半天行程，裕民小县城便宜</td></tr>
+<tr><td>5/1 D2</td><td>油+路+巴尔鲁克门票+餐+宿(精河)</td><td>¥820</td><td>五一当天，最长驾驶日</td></tr>
+<tr><td>5/2 D3</td><td>赛湖门票+油+餐+宿(清水河)</td><td>¥815</td><td>核心亮点日，赛湖门票¥145</td></tr>
+<tr><td>5/3 D4</td><td>油+餐+宿(伊宁)</td><td>¥695</td><td>进伊宁市，开始连住</td></tr>
+<tr><td>5/4 D5</td><td>油+托乎拉苏门票+餐+宿(伊宁)</td><td>¥785</td><td>伊宁环线游，第二晚伊宁</td></tr>
+<tr><td>5/6 D6</td><td>餐饮(市区收尾)</td><td>¥60</td><td>上午半天，还车返程</td></tr>
+<tr style="background:rgba(245,158,11,.08)"><td colspan="2"><strong>合计（单人，含5晚住宿）</strong></td><td><strong style="color:var(--accent);font-size:16px">¥3,470</strong></td><td>不含机票租车</td></tr>
+<tr style="background:rgba(59,130,246,.06)"><td colspan="2"><strong>+ 租车费估算（6天·SUV）</strong></td><td><strong style="color:var(--accent2);font-size:16px">+ ¥1,200-1,800</strong></td><td>五一溢价</td></tr>
+<tr style="background:rgba(34,197,94,.06)"><td colspan="2"><strong>+ 往返机票（成都⇌塔城/伊宁）</strong></td><td><strong style="color:#22c55e;font-size:16px">+ ~¥2,000-3,000</strong></td><td>已购票忽略此项</td></tr>
 </table>
 </div>
 
 <div class="card">
 <div class="card-title"><span>🍜</span> 一路餐饮价格参考</div>
 <div class="food-grid">
-<div class="food-item"><div class="food-icon">🥩</div><div class="food-name">风干肉套餐</div><div class="food-city">塔城</div><div class="food-price">¥45-68</div></div>
-<div class="food-item"><div class="food-icon">🫓</div><div class="food-name">俄罗斯列巴</div><div class="food-city">塔城</div><div class="food-price">¥15-25</div></div>
-<div class="food-item"><div class="food-icon">🍺</div><div class="food-name">格瓦斯</div><div class="food-city">塔城</div><div class="food-price">¥8-12</div></div>
+<div class="food-item"><div class="food-icon">🎵</div><div class="food-name">小白杨哨所</div><div class="food-city">裕民</div><div class="food-price">无餐饮</div></div>
+<div class="food-item"><div class="food-icon">🌹</div><div class="food-name">巴尔鲁克山野餐</div><div class="food-city">裕民</div><div class="food-price">自备干粮</div></div>
 <div class="food-item"><div class="food-icon">🫓</div><div class="food-name">精河凉皮</div><div class="food-city">精河</div><div class="food-price">¥12-18</div></div>
-<div class="food-item"><div class="food-icon">🍖</div><div class="food-name">羊排揪片</div><div class="food-city">特克斯</div><div class="food-price">¥35-55</div></div>
-<div class="food-item"><div class="food-icon">🥛</div><div class="food-name">手工酸奶</div><div class="food-city">特克斯</div><div class="food-price">¥10-15</div></div>
-<div class="food-item"><div class="food-icon">🍨</div><div class="food-name">伊宁冰淇淋</div><div class="food-city">伊宁</div><div class="food-price">¥5-8</div></div>
-<div class="food-item"><div class="food-icon">🍛</div><div class="food-name">手抓饭</div><div class="food-city">伊宁</div><div class="food-price">¥35-48</div></div>
+<div class="food-item"><div class="food-icon">💎</div><div class="food-name">赛里木湖景区餐</div><div class="food-city">赛湖</div><div class="food-price">¥35-60</div></div>
+<div class="food-item"><div class="food-icon">🛍️</div><div class="food-name">霍尔果斯免税零食</div><div class="food-city">霍尔果斯</div><div class="food-price">看手速</div></div>
+<div class="food-item"><div class="food-icon">🍨</div><div class="food-name">喀赞其手工冰淇淋</div><div class="food-city">伊宁</div><div class="food-price">¥5-8</div></div>
+<div class="food-item"><div class="food-icon">🍛</div><div class="food-name">伊宁手抓饭</div><div class="food-city">伊宁</div><div class="food-price">¥35-48</div></div>
 <div class="food-item"><div class="food-icon">🫘</div><div class="food-name">面肺子</div><div class="food-city">伊宁</div><div class="food-price">¥20-28</div></div>
 <div class="food-item"><div class="food-icon">🫖</div><div class="food-name">卡瓦斯</div><div class="food-city">伊宁</div><div class="food-price">¥6-10</div></div>
 </div>
@@ -473,17 +485,16 @@ footer{text-align:center;padding:20px;color:var(--text2);font-size:12px;margin-t
 <div class="tip-box" style="margin-top:14px;background:linear-gradient(135deg,rgba(34,197,94,.08),rgba(59,130,246,.05));border:1px solid rgba(34,197,94,.2)">
 <h4 style="color:var(--green)">💡 省钱技巧</h4>
 <ul style="padding-left:18px;color:var(--text2);font-size:13.5px;">
-<li><strong>两人同行</strong>：住宿和油费平摊后人均可控制在 ¥3,000-3,500</li>
-<li><strong>避开连锁</strong>：小县城选本地宾馆（托里/特克斯），能省 ¥150-200/晚</li>
-<li><strong>自备干粮</strong>：精伊牧道上没有补给，提前在精河超市采购（比景区便宜一半）</li>
-<li><strong>门票省钱</strong>：赛里木湖自驾进去要买门票+区间车，如果只在外面环湖路开车可只付门票¥70</li>
-<li><strong>早点订房</strong>：越靠近五一价格越可能涨，现在看到的价格还算合理</li>
+<li><strong>两人同行</strong>：住宿和油费平摊后人均可控在 ¥2,500-3,000（不含机票租车）</li>
+<li><strong>伊宁连住两晚</strong>：D4-D5都住伊宁不用换酒店，可谈连住折扣</li>
+<li><strong>自备干粮</strong>：赛里木湖景区内餐饮贵，提前在精河/博乐超市采购</li>
+<li><strong>门票优化</strong>：赛里木湖自驾环湖公路只买门票¥70即可；区间车非必须</li>
+<li><strong>五一预订</strong>：越靠近五一酒店越贵甚至满房，现在看到的价格还算合理</li>
+<li><strong>租车建议</strong>：提前在各大平台比价（神州/一帆/携程），SUV推荐</li>
 </ul>
 </div>
 
-</div><!-- end panel-money -->
-
-<!-- Panel: Tips -->
+</div><!-- end panel-money --><!-- Panel: Tips -->
 <div id="panel-tips" class="panel">
 
 <div class="card">
@@ -550,7 +561,7 @@ footer{text-align:center;padding:20px;color:var(--text2);font-size:12px;margin-t
 </div><!-- end panel-xhs -->
 
 <footer>
-<p>🗺️ 腾讯地图 JSAPI GL ｜ 🏨 途牛酒店实时数据 ｜ 🔍 小红书搜索聚合 ｜ 生成时间：2026.4.23 22:17</p>
+<p>🗺️ 腾讯地图 JSAPI GL ｜ 🏨 途牛酒店实时数据 ｜ 🔍 小红书搜索聚合 ｜ 更新时间：2026.4.24 08:39 · 2026版新路线</p>
 <p style="margin-top:5px;">出行前请再次确认各景区最新公告 · 数据仅供参考以实际为准</p>
 </footer>
 
