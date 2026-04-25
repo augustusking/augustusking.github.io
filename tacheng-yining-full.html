@@ -16,7 +16,17 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;backgr
 .tags{display:flex;justify-content:center;gap:10px;margin-top:14px;flex-wrap:wrap}
 .tag{background:rgba(255,255,255,.07);border:1px solid var(--border);padding:3px 12px;border-radius:16px;font-size:12px;color:var(--text2)}
 
-#mapContainer{width:100%;height:420px;border-radius:16px;border:2px solid var(--border);overflow:hidden;margin-bottom:16px}
+#mapContainer{width:100%;height:420px;border-radius:16px;border:2px solid var(--border);overflow:hidden;margin-bottom:4px;position:relative}
+#mapContainer:hover{border-color:var(--accent)}
+.map-zoom-hint{text-align:center;padding:8px;font-size:12.5px;color:var(--text2);background:var(--card2);border-radius:8px;margin-bottom:12px;cursor:pointer;transition:.2s;border:1px dashed var(--border);user-select:none}
+.map-zoom-hint:hover{color:var(--accent);border-color:var(--accent);background:rgba(250,204,21,.05)}
+#mapOverlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.75);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s ease;backdrop-filter:blur(4px)}
+#mapOverlay.show{opacity:1}
+.map-overlay-inner{position:relative;width:94vw;max-width:1100px;height:85vh;background:#1a2332;border-radius:20px;overflow:auto;display:flex;align-items:center;justify-content:center;border:2px solid rgba(250,204,21,.3);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.map-overlay-inner svg{width:100%;height:auto;min-width:900px;border-radius:16px}
+.map-overlay-close{position:absolute;top:12px;right:16px;background:rgba(239,68,68,.9);color:#fff;padding:6px 16px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;z-index:10;transition:.2s;user-select:none}
+.map-overlay-close:hover{background:#ef4444}
+.map-overlay-tip{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);color:#94a3b8;font-size:12.5px;background:rgba(0,0,0,.5);padding:5px 14px;border-radius:20px;pointer-events:none}
 
 .tabs{display:flex;gap:0;margin-bottom:16px;background:var(--card);border-radius:12px;overflow:hidden;border:1px solid var(--border)}
 .tab{padding:11px 18px;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--text2);border:none;background:none;transition:.2s;flex:1;text-align:center}
@@ -93,182 +103,212 @@ footer{text-align:center;padding:20px;color:var(--text2);font-size:12px;margin-t
 
 <!-- Map: 纯SVG内联路线图（2026版v2慢游：D0-D1塔城地区/D2出发精河/D3到伊宁/D4-D5辐射）-->
 <div id="mapContainer">
-<svg viewBox="0 0 800 520" preserveAspectRatio="xMidYMid meet" style="width:100%;height:420px;background:#1a2332;border-radius:16px;display:block">
+<svg viewBox="0 0 850 540" preserveAspectRatio="xMidYMid meet" style="width:100%;height:420px;background:#1a2332;border-radius:16px;display:block">
 <defs>
 <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ffffff08" stroke-width="0.5"/></pattern>
-<filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMergeFilter>
+<filter id="glow"><feGaussianBlur stdDeviation="2.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMergeFilter>
 </defs>
-<rect width="800" height="520" fill="#1a2332"/>
-<rect width="800" height="520" fill="url(#grid)"/>
+<rect width="850" height="540" fill="#1a2332"/>
+<rect width="850" height="540" fill="url(#grid)"/>
 
-<!-- 新疆轮廓 -->
-<path d="M120 20 L280 10 L450 30 L620 80 L720 150 L760 250 L750 380 L700 470 L580 500 L400 490 L220 480 L100 430 L50 320 L60 180 L90 80 Z"
+<!-- 新疆轮廓（稍大一点） -->
+<path d="M140 25 L300 15 L480 35 L650 85 L750 160 L790 260 L780 390 L720 480 L600 510 L420 500 L240 490 L110 440 L60 330 L70 190 L100 85 Z"
   fill="#ffffff04" stroke="#334155" stroke-width="1.5"/>
 
-<!-- ====== 每日路线（新版） ====== -->
-<!-- D1: 塔城↔巴克图口岸→裕民·小白杨哨所 (黄色，塔城周边慢游) -->
-<path d="M170 95 L145 105 L165 130 L170 95" stroke="#f59e0b" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" filter="url(#glow)">
-<title>D1: 塔城→巴克图口岸(边境)→裕民县(小白杨哨所)→返回塔城 · 五一当天慢游 · ~90km往返</title></path>
+<!-- ========== 每日路线 + 公里数标注 ========== -->
 
-<!-- D2: 塔城→裕民→巴尔鲁克山→阿拉山口→精河 (橙色，正式向西出发!) -->
-<path d="M170 95 L165 130 L175 148 L255 215 L295 235" stroke="#f97316" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" filter="url(#glow)">
-<title>D2: 5/2正式出发! 塔城/裕民→巴尔鲁克山(玫瑰谷)→阿拉山口国门→精河县 · ~280km</title></path>
+<!-- D0/D1: 塔城↔巴克图→裕民 往返 (黄色) -->
+<path d="M180 100 L152 112 L172 142 L180 100" stroke="#f59e0b" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" filter="url(#glow)"/>
+<rect x="143" y="98" width="36" height="16" rx="8" fill="#f59e0b" opacity="0.9"/><text x="161" y="110" text-anchor="middle" fill="#000" font-size="9.5" font-weight="bold">25km</text>
+<rect x="146" y="132" width="36" height="16" rx="8" fill="#f59e0b" opacity="0.9"/><text x="164" y="144" text-anchor="middle" fill="#000" font-size="9.5" font-weight="bold">45km</text>
+<rect x="168" y="114" width="36" height="16" rx="8" fill="#f59e0b" opacity="0.9"/><text x="186" y="126" text-anchor="middle" fill="#000" font-size="9.5" font-weight="bold">20km</text>
 
-<!-- D3: 精河→赛里木湖→果子沟→直达伊宁 (绿色，核心亮点日!) -->
-<path d="M295 235 L350 285 L368 298 L555 340" stroke="#22c55e" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" filter="url(#glow)">
-<title>D3: 精河→赛里木湖💎(全天)→果子沟大桥🌉→直抵伊宁市! · ~250km · 核心亮点</title></path>
+<!-- D2: 塔城→巴尔鲁克山→阿拉山口→精河 (橙色) -->
+<path d="M180 100 L172 142 L185 162 L270 235 L315 260" stroke="#f97316" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" filter="url(#glow)"/>
+<rect x="174" y="147" width="36" height="16" rx="8" fill="#f97316" opacity="0.9"/><text x="192" y="159" text-anchor="middle" fill="#000" font-size="9.5" font-weight="bold">30km</text>
+<rect x="218" y="192" width="40" height="16" rx="8" fill="#f97316" opacity="0.9"/><text x="238" y="204" text-anchor="middle" fill="#000" font-size="9.5" font-weight="bold">105km</text>
+<rect x="286" y="242" width="40" height="16" rx="8" fill="#f97316" opacity="0.9"/><text x="306" y="254" text-anchor="middle" fill="#000" font-size="9.5" font-weight="bold">80km</text>
 
-<!-- D4: 伊宁↔霍尔果斯+图开沙漠 往返辐射游 (蓝色) -->
-<path d="M555 340 L468 325 L430 315 L555 340" stroke="#3b82f6" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" filter="url(#glow)" stroke-dasharray="8,4">
-<title>D4: 伊宁→图开沙漠🏜️→霍尔果斯🛍️→返回伊宁 · 往返~150km · 早出晚归</title></path>
+<!-- D3: 精河→赛里木湖→果子沟→直冲伊宁 (绿色) -->
+<path d="M315 260 L380 310 L400 326 L600 365" stroke="#22c55e" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" filter="url(#glow)"/>
+<rect x="338" y="278" width="40" height="16" rx="8" fill="#22c55e" opacity="0.9"/><text x="358" y="290" text-anchor="middle" fill="#000" font-size="9.5" font-weight="bold">101km</text>
+<rect x="382" y="312" width="28" height="16" rx="8" fill="#22c55e" opacity="0.9"/><text x="396" y="324" text-anchor="middle" fill="#000" font-size="9.5" font-weight="bold">28km</text>
+<rect x="490" y="340" width="50" height="16" rx="8" fill="#22c55e" opacity="0.9"/><text x="515" y="352" text-anchor="middle" fill="#000" font-size="9.5" font-weight="bold">~150km</text>
 
-<!-- D5: 伊宁→托乎拉苏草原→天山花海→伊宁 (紫色环线) -->
-<path d="M555 340 L535 295 L445 285 L555 340" stroke="#8b5cf6" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.85" filter="url(#glow)" stroke-dasharray="8,4">
-<title>D5: 伊宁⇢托乎拉苏草原⛰️→天山花海💐→伊宁 · 环线~130km · 或改伊宁市内深度游</title></path>
+<!-- D4: 伊宁↔图开沙漠→霍尔果斯 往返 (蓝色虚线) -->
+<path d="M600 365 L510 350 L468 338 L600 365" stroke="#3b82f6" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" filter="url(#glow)" stroke-dasharray="8,5"/>
+<rect x="546" y="350" width="40" height="16" rx="8" fill="#3b82f6" opacity="0.85"/><text x="566" y="362" text-anchor="middle" fill="#fff" font-size="9.5" font-weight="bold">50km</text>
+<rect x="480" y="338" width="32" height="16" rx="8" fill="#3b82f6" opacity="0.85"/><text x="496" y="350" text-anchor="middle" fill="#fff" font-size="9.5" font-weight="bold">30km</text>
 
-<!-- D6: 伊宁市区短途→机场还车 (粉色) -->
-<path d="M555 340 L580 330 L585 310" stroke="#ec4899" stroke-width="3.5" fill="none" stroke-linecap="round" opacity="0.7" stroke-dasharray="4,3">
-<title>D6: 伊宁市区→汉人街/六星街→机场还车 · 上午收尾</title></path>
+<!-- D5: 伊宁→托乎拉苏→天山花海→伊宁 (紫色环线) -->
+<path d="M600 365 L578 305 L475 290 L600 365" stroke="#8b5cf6" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.8" filter="url(#glow)" stroke-dasharray="8,5"/>
+<rect x="582" y="330" width="36" height="16" rx="8" fill="#8b5cf6" opacity="0.85"/><text x="600" y="342" text-anchor="middle" fill="#fff" font-size="9.5" font-weight="bold">55km</text>
+<rect x="518" y="292" width="40" height="16" rx="8" fill="#8b5cf6" opacity="0.85"/><text x="538" y="304" text-anchor="middle" fill="#fff" font-size="9.5" font-weight="bold">70km</text>
+<rect x="528" y="330" width="50" height="16" rx="8" fill="#8b5cf6" opacity="0.85"/><text x="553" y="342" text-anchor="middle" fill="#fff" font-size="9.5" font-weight="bold">65km</text>
 
-<!-- ====== 城市标记点 + 标签（新版） ====== -->
+<!-- D6: 伊宁市区→机场 (粉色短线) -->
+<path d="M600 365 L630 352 L640 330" stroke="#ec4899" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.7" stroke-dasharray="4,3"/>
 
-<!-- ✈️ 塔城 起点（机场落地） -->
+<!-- ========== 城市标记（精简版：名称+关键信息） ========== -->
+
+<!-- ✈️ 塔城 起点 -->
 <g class="city-point">
-<circle cx="170" cy="95" r="13" fill="#f59e0b" stroke="#fff" stroke-width="2.5"/>
-<text x="170" y="99" text-anchor="middle" fill="#000" font-size="11" font-weight="bold">✈️</text>
-<text x="170" y="74" text-anchor="middle" fill="#f59e0b" font-size="13" font-weight="bold">塔城</text>
-<text x="170" y="88" text-anchor="middle" fill="#94a3b8" font-size="9">(✈️4/30 13:30落 · 🏨D0-D1宿)</text>
+<circle cx="180" cy="100" r="14" fill="#f59e0b" stroke="#fff" stroke-width="2.5"/>
+<text x="180" y="104" text-anchor="middle" fill="#000" font-size="12" font-weight="bold">✈</text>
+<text x="180" y="76" text-anchor="middle" fill="#f59e0b" font-size="14" font-weight="bold">塔城市</text>
+<text x="180" y="90" text-anchor="middle" fill="#94a3b8" font-size="10">✈ 4/30落地 · D0-D1住</text>
 </g>
 
-<!-- 巴克图口岸（中哈边境） -->
+<!-- 🚩 巴克图口岸 -->
 <g class="city-point">
-<circle cx="145" cy="105" r="8" fill="#ef4444" stroke="#fff" stroke-width="2"/>
-<text x="145" y="109" text-anchor="middle" fill="#000" font-size="9" font-weight="bold">🚩</text>
-<text x="125" y="98" text-anchor="end" fill="#ef4444" font-size="11" font-weight="bold">巴克图口岸</text>
-<text x="125" y="110" text-anchor="end" fill="#94a3b8" font-size="9">🇨🇳边境国门 · D1打卡</text>
+<circle cx="152" cy="112" r="9" fill="#ef4444" stroke="#fff" stroke-width="2"/>
+<text x="152" y="116" text-anchor="middle" fill="#000" font-size="10" font-weight="bold">⚑</text>
+<text x="136" y="104" text-anchor="end" fill="#ef4444" font-size="12" font-weight="bold">巴克图口岸</text>
+<text x="136" y="118" text-anchor="end" fill="#94a3b8" font-size="9.5">中哈边境 · D1</text>
 </g>
 
-<!-- 裕民县 + 小白杨哨所 -->
+<!-- 🌲 裕民县 -->
 <g class="city-point">
-<circle cx="165" cy="130" r="10" fill="#22c55e" stroke="#fff" stroke-width="2"/>
-<text x="165" y="134" text-anchor="middle" fill="#000" font-size="10" font-weight="bold">🌲</text>
-<text x="145" y="125" text-anchor="end" fill="#22c55e" font-size="12" font-weight="bold">裕民县</text>
-<text x="145" y="138" text-anchor="end" fill="#94a3b8" font-size="9">🎵小白杨哨所 · D1打卡</text>
+<circle cx="172" cy="142" r="11" fill="#22c55e" stroke="#fff" stroke-width="2"/>
+<text x="172" y="146" text-anchor="middle" fill="#000" font-size="11" font-weight="bold">🌲</text>
+<text x="152" y="156" text-anchor="end" fill="#22c55e" font-size="13" font-weight="bold">裕民县</text>
+<text x="152" y="170" text-anchor="end" fill="#94a3b8" font-size="10">小白杨哨所</text>
 </g>
 
 <!-- 巴尔鲁克山 -->
 <g class="city-point">
-<circle cx="175" cy="148" r="7" fill="#3b82f6" stroke="#fff" stroke-width="1.5"/>
-<text x="188" y="145" text-anchor="start" fill="#e2e8f0" font-size="11" font-weight="bold">巴尔鲁克山</text>
-<text x="188" y="157" text-anchor="start" fill="#94a3b8" font-size="9">🌹野生玫瑰谷 · D2上午</text>
+<circle cx="185" cy="162" r="8" fill="#3b82f6" stroke="#fff" stroke-width="1.5"/>
+<text x="200" y="158" text-anchor="start" fill="#e2e8f0" font-size="12" font-weight="bold">巴尔鲁克山</text>
+<text x="200" y="171" text-anchor="start" fill="#94a3b8" font-size="9.5">🌹 玫瑰谷 · D2</text>
 </g>
 
-<!-- 阿拉山口口岸 -->
+<!-- 阿拉山口 -->
 <g class="city-point">
-<circle cx="255" cy="215" r="8" fill="#ef4444" stroke="#fff" stroke-width="2"/>
-<text x="255" y="219" text-anchor="middle" fill="#000" font-size="9" font-weight="bold">🚧</text>
-<text x="235" y="208" text-anchor="end" fill="#ef4444" font-size="11" font-weight="bold">阿拉山口</text>
-<text x="235" y="220" text-anchor="end" fill="#94a3b8" font-size="9">🇨🇳中哈国门 · D2下午</text>
+<circle cx="270" cy="235" r="9" fill="#ef4444" stroke="#fff" stroke-width="2"/>
+<text x="270" y="239" text-anchor="middle" fill="#000" font-size="10" font-weight="bold">⚠</text>
+<text x="250" y="225" text-anchor="end" fill="#ef4444" font-size="12" font-weight="bold">阿拉山口</text>
+<text x="250" y="239" text-anchor="end" fill="#94a3b8" font-size="9.5">中哈国门 · D2</text>
 </g>
 
 <!-- 精河县 -->
 <g class="city-point">
-<circle cx="295" cy="235" r="8" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
-<text x="275" y="248" text-anchor="end" fill="#e2e8f0" font-size="11.5" font-weight="bold">精河县</text>
-<text x="275" y="262" text-anchor="end" fill="#94a3b8" font-size="10">🍜凉皮必吃! · 🏨D2宿(5/2)</text>
+<circle cx="315" cy="260" r="10" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
+<text x="315" y="264" text-anchor="middle" fill="#000" font-size="10" font-weight="bold">★</text>
+<text x="290" y="278" text-anchor="end" fill="#e2e8f0" font-size="13" font-weight="bold">精河县</text>
+<text x="290" y="292" text-anchor="end" fill="#94a3b8" font-size="10">🏨 D2住(5/2)</text>
 </g>
 
-<!-- 赛里木湖 (核心亮点!!) -->
+<!-- 💎 赛里木湖（核心！放大标记） -->
 <g class="city-point">
-<circle cx="350" cy="285" r="15" fill="#22c55e" stroke="#fff" stroke-width="2.5"/>
-<text x="350" y="290" text-anchor="middle" fill="#000" font-size="14" font-weight="bold">💎</text>
-<text x="376" y="276" text-anchor="start" fill="#22c55e" font-size="13" font-weight="bold">赛里木湖</text>
-<text x="376" y="291" text-anchor="start" fill="#94a3b8" font-size="10">🌊大西洋最后一滴眼泪 · D3全天</text>
+<circle cx="380" cy="310" r="17" fill="#22c55e" stroke="#fff" stroke-width="2.5"/>
+<text x="380" y="315" text-anchor="middle" fill="#000" font-size="15" font-weight="bold">💎</text>
+<text x="410" y="298" text-anchor="start" fill="#22c55e" font-size="14" font-weight="bold">赛里木湖</text>
+<text x="410" y="314" text-anchor="start" fill="#94a3b8" font-size="10">大西洋最后一滴眼泪</text>
 </g>
 
 <!-- 果子沟大桥 -->
 <g class="city-point">
-<circle cx="368" cy="298" r="6" fill="#f59e0b" stroke="#fff" stroke-width="1.5"/>
-<text x="382" y="295" text-anchor="start" fill="#f59e0b" font-size="10.5" font-weight="bold">🌉果子沟</text>
-<text x="382" y="306" text-anchor="start" fill="#94a3b8" font-size="9">亚洲最大公路隧道群</text>
+<circle cx="400" cy="326" r="7" fill="#f59e0b" stroke="#fff" stroke-width="1.5"/>
+<text x="414" y="322" text-anchor="start" fill="#f59e0b" font-size="11" font-weight="bold">果子沟</text>
+<text x="414" y="335" text-anchor="start" fill="#94a3b8" font-size="9">亚洲最大隧道群</text>
 </g>
 
-<!-- 清水河镇(霍城方向) -->
+<!-- 霍尔果斯 -->
 <g class="city-point">
-<circle cx="390" cy="308" r="7" fill="#3b82f6" stroke="#fff" stroke-width="1.5"/>
-<text x="400" y="305" text-anchor="start" fill="#e2e8f0" font-size="11" font-weight="bold">清水河镇</text>
-<text x="400" y="317" text-anchor="start" fill="#94a3b8" font-size="9">途经点(D3不在此宿)</text>
-</g>
-
-<!-- 霍尔果斯口岸 -->
-<g class="city-point">
-<circle cx="430" cy="315" r="9" fill="#ef4444" stroke="#fff" stroke-width="2"/>
-<text x="430" y="319" text-anchor="middle" fill="#000" font-size="9" font-weight="bold">🏢</text>
-<text x="448" y="310" text-anchor="start" fill="#ef4444" font-size="11.5" font-weight="bold">霍尔果斯</text>
-<text x="448" y="323" text-anchor="start" fill="#94a3b8" font-size="9">🛍️中哈合作中心 · D4往返</text>
+<circle cx="468" cy="338" r="10" fill="#ef4444" stroke="#fff" stroke-width="2"/>
+<text x="468" y="342" text-anchor="middle" fill="#000" font-size="10" font-weight="bold">🏢</text>
+<text x="486" y="332" text-anchor="start" fill="#ef4444" font-size="12" font-weight="bold">霍尔果斯</text>
+<text x="486" y="346" text-anchor="start" fill="#94a3b8" font-size="9.5">中哈合作中心</text>
 </g>
 
 <!-- 图开沙漠 -->
 <g class="city-point">
-<circle cx="468" cy="325" r="7" fill="#eab308" stroke="#fff" stroke-width="1.5"/>
-<text x="468" y="329" text-anchor="middle" fill="#000" font-size="9" font-weight="bold">🏜️</text>
-<text x="483" y="320" text-anchor="start" fill="#eab308" font-size="11" font-weight="bold">图开沙漠</text>
-<text x="483" y="332" text-anchor="start" fill="#94a3b8" font-size="9">新疆唯一绿洲沙漠 · D4上午</text>
+<circle cx="510" cy="350" r="8" fill="#eab308" stroke="#fff" stroke-width="1.5"/>
+<text x="510" y="354" text-anchor="middle" fill="#000" font-size="9" font-weight="bold">🏜</text>
+<text x="526" y="344" text-anchor="start" fill="#eab308" font-size="11.5" font-weight="bold">图开沙漠</text>
+<text x="526" y="357" text-anchor="start" fill="#94a3b8" font-size="9">绿洲中的沙漠</text>
 </g>
 
-<!-- 伊宁市 终点（喀赞其+多晚住宿） -->
+<!-- 🏠 伊宁市 终点+大本营（最大标记） -->
 <g class="city-point">
-<circle cx="555" cy="340" r="13" fill="#ec4899" stroke="#fff" stroke-width="2.5"/>
-<text x="555" y="344" text-anchor="middle" fill="#000" font-size="11" font-weight="bold">🏠</text>
-<text x="555" y="370" text-anchor="middle" fill="#ec4899" font-size="13" font-weight="bold">伊宁市</text>
-<text x="555" y="384" text-anchor="middle" fill="#94a3b8" font-size="10">(🏨D3-D5连住3晚 · ✈️5/6 16:00飞离)</text>
+<circle cx="600" cy="365" r="15" fill="#ec4899" stroke="#fff" stroke-width="2.5"/>
+<text x="600" y="370" text-anchor="middle" fill="#000" font-size="13" font-weight="bold">🏠</text>
+<text x="600" y="398" text-anchor="middle" fill="#ec4899" font-size="14" font-weight="bold">伊宁市</text>
+<text x="600" y="414" text-anchor="middle" fill="#94a3b8" font-size="10">🏨 D3-D5 连住3晚 · ✈ 5/6飞离</text>
 </g>
 
-<!-- 托乎拉苏草原 -->
+<!-- 托乎拉苏草原（移到伊宁右上方） -->
 <g class="city-point">
-<circle cx="535" cy="295" r="8" fill="#22c55e" stroke="#fff" stroke-width="2"/>
-<text x="535" y="299" text-anchor="middle" fill="#000" font-size="9" font-weight="bold">⛰️</text>
-<text x="550" y="286" text-anchor="start" fill="#22c55e" font-size="11.5" font-weight="bold">托乎拉苏草原</text>
-<text x="550" y="298" text-anchor="start" fill="#94a3b8" font-size="9">🌿空中草原 · D5上午</text>
+<circle cx="578" cy="305" r="9" fill="#22c55e" stroke="#fff" stroke-width="2"/>
+<text x="578" y="309" text-anchor="middle" fill="#000" font-size="9" font-weight="bold">⛰</text>
+<text x="596" y="296" text-anchor="start" fill="#22c55e" font-size="12" font-weight="bold">托乎拉苏草原</text>
+<text x="596" y="309" text-anchor="start" fill="#94a3b8" font-size="9.5">空中草原</text>
 </g>
 
-<!-- 天山花海(霍城薰衣草) -->
+<!-- 天山花海（移到左上方，避开伊宁区） -->
 <g class="city-point">
-<circle cx="445" cy="285" r="8" fill="#a855f7" stroke="#fff" stroke-width="2"/>
-<text x="445" y="289" text-anchor="middle" fill="#000" font-size="9" font-weight="bold">💐</text>
-<text x="420" y="280" text-anchor="end" fill="#a855f7" font-size="11.5" font-weight="bold">天山花海</text>
-<text x="420" y="292" text-anchor="end" fill="#94a3b8" font-size="9">🌸薰衣草·5月初未花期 ⚠️</text>
+<circle cx="475" cy="290" r="9" fill="#a855f7" stroke="#fff" stroke-width="2"/>
+<text x="475" y="294" text-anchor="middle" fill="#000" font-size="9" font-weight="bold">🌸</text>
+<text x="455" y="282" text-anchor="end" fill="#a855f7" font-size="12" font-weight="bold">天山花海</text>
+<text x="455" y="295" text-anchor="end" fill="#94a3b8" font-size="9.5">薰衣草基地</text>
 </g>
 
-<!-- ⚠️ 标记：花期风险 -->
-<g class="closed-spot">
-<line x1="435" y1="275" x2="455" y2="295" stroke="#eab308" stroke-width="2"/>
-<line x1="455" y1="275" x2="435" y2="295" stroke="#eab308" stroke-width="2"/>
-<text x="445" y="270" text-anchor="middle" fill="#eab308" font-size="9" font-weight="bold">⚠️ 5月初花期未至?</text>
+<!-- ========== 图例（紧凑版） ========== -->
+<g transform="translate(660, 22)">
+<rect x="0" y="0" width="175" height="108" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1" opacity="0.95"/>
+<text x="87" y="20" text-anchor="middle" fill="#e2e8f0" font-size="11.5" font-weight="bold">每日路线</text>
+<rect x="12" y="32" width="18" height="4" rx="2" fill="#f59e0b"/><text x="36" y="37" fill="#94a3b8" font-size="9">D0/D1 塔城周边 (~90km)</text>
+<rect x="12" y="45" width="18" height="4" rx="2" fill="#f97316"/><text x="36" y="50" fill="#94a3b8" font-size="9">D2 →精河 (~215km)</text>
+<rect x="12" y="58" width="18" height="4" rx="2" fill="#22c55e"/><text x="36" y="63" fill="#94a3b8" font-size="9">D3 赛湖→伊宁! (~279km)</text>
+<rect x="12" y="71" width="18" height="4" rx="2" fill="#3b82f6" stroke-dasharray="4,2"/><text x="36" y="76" fill="#94a3b8" font-size="9">D4 ↔霍尔果斯 (~80km往)</text>
+<rect x="12" y="84" width="18" height="4" rx="2" fill="#8b5cf6" stroke-dasharray="4,2"/><text x="36" y="89" fill="#94a3b8" font-size="9">D5 伊宁环线 (~130km)</text>
+<rect x="12" y="97" width="18" height="4" rx="2" fill="#ec4899" stroke-dasharray="3,2"/><text x="36" y="102" fill="#94a3b8" font-size="9">D6 市区收尾·飞离</text>
 </g>
 
-<!-- 图例 -->
-<text x="650" y="32" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">每日路线(v2慢游版)</text>
-<rect x="590" y="42" width="20" height="4" rx="2" fill="#f59e0b"/><text x="615" y="47" fill="#94a3b8" font-size="9">D0 落地提车</rect>
-<rect x="590" y="54" width="20" height="4" rx="2" fill="#f59e0b"/><text x="615" y="59" fill="#94a3b8" font-size="9">D1 塔城周边慢游</rect>
-<rect x="590" y="66" width="20" height="4" rx="2" fill="#f97316"/><text x="615" y="71" fill="#94a3b8" font-size="9">D2 出发!→精河</rect>
-<rect x="690" y="42" width="20" height="4" rx="2" fill="#22c55e"/><text x="715" y="47" fill="#94a3b8" font-size="9">D3 赛湖→到伊宁!</rect>
-<rect x="690" y="54" width="20" height="4" rx="2" fill="#3b82f6"/><text x="715" y="59" fill="#94a3b8" font-size="9">D4 伊宁↔霍尔果斯</rect>
-<rect x="690" y="66" width="20" height="4" rx="2" fill="#8b5cf6"/><text x="715" y="71" fill="#94a3b8" font-size="9">D5 伊宁环线游</rect>
-<rect x="590" y="78" width="20" height="4" rx="2" fill="#ec4899"/><text x="615" y="83" fill="#94a3b8" font-size="9">D6 市区收尾·飞离</rect>
-
-<!-- 总里程 -->
-<rect x="586" y="94" width="210" height="34" rx="8" fill="rgba(245,158,11,.1)" stroke="#f59e0b" stroke-width="1"/>
-<text x="691" y="116" text-anchor="middle" fill="#f59e0b" font-size="12" font-weight="bold">📏 ~750km · 7天含D0 · 仅换2次酒店</text>
+<!-- 总里程信息框 -->
+<g transform="translate(660, 138)">
+<rect x="0" y="0" width="175" height="38" rx="10" fill="rgba(245,158,11,.1)" stroke="#f59e0b" stroke-width="1.2"/>
+<text x="87" y="17" text-anchor="middle" fill="#f59e0b" font-size="11" font-weight="bold">📏 全程约 ~750km</text>
+<text x="87" y="31" text-anchor="middle" fill="#94a3b8" font-size="9">7天含D0 · 仅换2次酒店</text>
+</g>
 
 <!-- 比例尺 -->
-<line x1="30" y1="495" x2="130" y2="495" stroke="#94a3b8" stroke-width="1.5"/>
-<line x1="30" y1="491" x2="30" y2="499" stroke="#94a3b8" stroke-width="1.5"/>
-<line x1="130" y1="491" x2="130" y2="499" stroke="#94a3b8" stroke-width="1.5"/>
-<text x="80" y="488" text-anchor="middle" fill="#94a3b8" font-size="10">~100km</text>
-<text x="80" y="512" text-anchor="middle" fill="#475569" font-size="9">示意图，非精确比例 · 2026版v2慢游路线</text>
+<line x1="30" y1="515" x2="130" y2="515" stroke="#94a3b8" stroke-width="1.5"/>
+<line x1="30" y1="511" x2="30" y2="519" stroke="#94a3b8" stroke-width="1.5"/>
+<line x1="130" y1="511" x2="130" y2="519" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="80" y="508" text-anchor="middle" fill="#94a3b8" font-size="10">~100km</text>
+<text x="80" y="532" text-anchor="middle" fill="#475569" font-size="9">示意图 · v2慢游版 · 2026.4.25</text>
 </svg>
+<div class="map-zoom-hint" id="mapZoomHint">🔍 点击地图放大查看详情</div>
 </div>
+<script>
+(function(){
+  var container=document.getElementById('mapContainer');
+  var hint=document.getElementById('mapZoomHint');
+  var zoomed=false;
+  var overlay=null;
+  container.style.cursor='pointer';
+  container.addEventListener('click',function(){
+    if(zoomed)return;
+    zoomed=true;
+    hint.style.display='none';
+    overlay=document.createElement('div');
+    overlay.id='mapOverlay';
+    overlay.innerHTML='<div class="map-overlay-inner">'+container.outerHTML.replace('map-zoom-hint" id="mapZoomHint"','map-zoom-hint" style="display:none"')+'<div class="map-overlay-close">✕ 关闭</div><div class="map-overlay-tip">💡 可滚动查看完整地图 · 点击空白处或 ✕ 关闭</div></div>';
+    document.body.appendChild(overlay);
+    requestAnimationFrame(function(){overlay.classList.add('show');});
+    overlay.querySelector('.map-overlay-close').addEventListener('click',closeZoom);
+    overlay.addEventListener('click',function(e){if(e.target===overlay)closeZoom();});
+  });
+  function closeZoom(){
+    if(!zoomed)return;
+    zoomed=false;
+    if(overlay){overlay.classList.remove('show');setTimeout(function(){if(overlay&&overlay.parentNode)overlay.parentNode.removeChild(overlay);overlay=null;},300);}
+    hint.style.display='';
+  }
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeZoom();});
+})();
+</script>
 <div class="map-legend">
 <span><span class="legend-dot" style="background:#f59e0b"></span>起点/终点/途经点</span>
 <span><span class="legend-line" style="background:linear-gradient(90deg,#f59e0b,#3b82f6)"></span>每日路线</span>
