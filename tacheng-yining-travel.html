@@ -3,499 +3,336 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🚗 塔城→伊宁 6天自驾攻略 | 小红书数据聚合</title>
+<title>🚗 塔城→伊宁 自驾攻略 | 小红书最新搜索聚合 · 2026-04-25</title>
 <style>
-  :root {
-    --bg: #0f172a; --card: #1e293b; --card2: #273549;
-    --text: #e2e8f0; --text2: #94a3b8; --accent: #f59e0b; --accent2: #3b82f6;
-    --red: #ef4444; --green: #22c55e; --yellow: #eab308;
-    --border: #334155; --radius: 12px;
-  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; padding: 20px; }
-
-  .hero {
-    text-align: center; padding: 50px 20px 40px;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    border-radius: 24px; margin-bottom: 30px; position: relative; overflow: hidden;
+  body {
+    font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: #0f172a; color: #e2e8f0; line-height: 1.7; padding: 20px;
   }
-  .hero::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:radial-gradient(circle, rgba(245,158,11,.08) 0%, transparent 60%); }
-  .hero h1 { font-size: 28px; margin-bottom: 10px; position:relative; }
-  .hero h1 span { color: var(--accent); }
-  .hero .subtitle { color: var(--text2); font-size: 15px; position:relative; }
-  .hero .meta { display:flex; justify-content:center; gap:20px; margin-top:18px; flex-wrap-wrap; position:relative;}
-  .hero .meta .tag { background:rgba(255,255,255,.08); border:1px solid var(--border); padding:4px 14px; border-radius:20px; font-size:13px; color:var(--text2);}
-  .badge-new { animation: pulse 2s infinite; }
 
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; margin-bottom: 30px; }
-  .card { background: var(--card); border-radius: var(--radius); padding: 24px; border: 1px solid var(--border); transition: transform .2s; }
-  .card:hover { transform: translateY(-2px); }
-  .card-title { font-size: 17px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-  .card-title .icon { font-size: 22px; }
+  /* Hero */
+  .hero {
+    text-align: center; padding: 40px 20px 32px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border-radius: 20px; margin-bottom: 24px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%;
+    background: radial-gradient(circle, rgba(245,158,11,.08) 0%, transparent 60%);
+  }
+  .hero h1 { font-size: 26px; margin-bottom: 8px; position:relative; }
+  .hero h1 span { color: #f59e0b; }
+  .hero .subtitle { color: #94a3b8; font-size: 14.5px; position:relative; }
+  .hero .meta { display:flex; justify-content:center; gap:16px; margin-top:14px; flex-wrap:wrap; position:relative;}
+  .hero .meta .tag {
+    background: rgba(255,255,255,.07); border:1px solid #334155;
+    padding: 4px 12px; border-radius: 16px; font-size: 12.5px; color: #94a3b8;
+  }
 
-  /* Status badges */
-  .status-closed { background: rgba(239,68,68,.15); color: #fca5a5; border:1px solid rgba(239,68,68,.25); padding:2px 10px; border-radius:6px; font-size:12px; font-weight:600; }
-  .status-warn { background: rgba(234,179,8,.15); color: #fde047; border:1px solid rgba(234,179,8,.25); padding:2px 10px; border-radius:6px; font-size:12px; font-weight:600; }
-  .status-ok { background: rgba(34,197,94,.15); color: #86efac; border:1px solid rgba(34,197,94,.25); padding:2px 10px; border-radius:6px; font-size:12px; font-weight:600; }
+  /* Stats bar */
+  .stats-bar {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .stat-item {
+    background: #1e293b; border-radius: 12px; padding: 18px; text-align: center;
+    border: 1px solid #334155;
+  }
+  .stat-num { font-size: 28px; font-weight: 900; color: #f59e0b; }
+  .stat-label { color: #94a3b8; font-size: 12px; margin-top: 4px; }
 
-  table { width: 100%; border-collapse: collapse; font-size: 14px; }
-  th { text-align:left; padding: 10px 12px; background: rgba(255,255,255,.04); color: var(--text2); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.5px; }
-  td { padding: 10px 12px; border-top: 1px solid var(--border); vertical-align: top; }
-  tr:hover td { background: rgba(255,255,255,.02); }
-
-  /* Itinerary */
-  .day-card { background: var(--card2); border-radius: 10px; padding: 18px; margin-bottom: 14px; border-left: 4px solid var(--accent); }
-  .day-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-  .day-num { background: var(--accent); color: #000; font-weight:800; width:32px; height:32px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:14px; }
-  .day-title { font-weight:700; font-size:15px; }
-  .day-km { color: var(--accent); font-size:13px; font-weight:600; }
-  .day-body { font-size: 14px; color: var(--text2); }
-  .day-body li { margin-bottom: 4px; list-style:none; padding-left:16px; position:relative; }
-  .day-body li::before { content:'→'; position:absolute; left:0; color: var(--accent); }
+  /* Note cards */
+  .note-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .note-card {
+    background: #1e293b; border-radius: 14px; padding: 20px;
+    border: 1px solid #334155; transition: transform .2s, border-color .2s;
+  }
+  .note-card:hover { transform: translateY(-3px); border-color: #f59e0b; }
+  
+  .note-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
+  .note-rank {
+    background: linear-gradient(135deg, #f59e0b, #ef4444); color: #fff;
+    font-weight: 800; font-size: 13px; width: 28px; height: 28px;
+    border-radius: 8px; display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .note-title { font-size: 15px; font-weight: 700; line-height: 1.5; color: #e2e8f0; }
+  
+  .note-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .note-likes { color: #ef4444; font-size: 13px; font-weight: 600; }
+  .note-link {
+    color: #22c55e; font-size: 12.5px; text-decoration: none; font-weight: 600;
+    padding: 3px 10px; border-radius: 6px; background: rgba(34,197,94,.08);
+    transition: .2s;
+  }
+  .note-link:hover { background: rgba(34,197,94,.18); }
+  
+  .note-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag-hot { color: #f59e0b; font-size: 12px; }
+  .tag-search {
+    background: rgba(59,130,246,.1); color: #93c5fd;
+    font-size: 11px; padding: 2px 8px; border-radius: 6px;
+  }
+  
+  .badge-hot {
+    background: linear-gradient(135deg, #ef4444, #f97316); color: #fff;
+    font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px;
+  }
 
   /* Tips */
-  .tip-box { background: linear-gradient(135deg, rgba(245,158,11,.08), rgba(59,130,246,.05)); border:1px solid rgba(245,158,11,.2); border-radius:10px; padding:18px; margin-bottom:14px; }
-  .tip-box h4 { color: var(--accent); margin-bottom: 8px; font-size:14px; }
-  .tip-box ul { padding-left: 18px; font-size:13.5px; color: var(--text2); }
-  .tip-box li { margin-bottom: 4px; }
+  .tips-box {
+    background: linear-gradient(135deg, rgba(245,158,11,.08), rgba(239,68,68,.05));
+    border: 1px solid rgba(245,158,11,.25); border-radius: 14px; padding: 20px; margin-bottom: 24px;
+  }
+  .tips-box h3 { color: #f59e0b; font-size: 15px; margin-bottom: 10px; }
+  .tips-box ul { padding-left: 18px; color: #94a3b8; font-size: 13.5px; }
+  .tips-box li { margin-bottom: 5px; }
 
-  /* Checklist */
-  .checklist { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
-  .check-item { display: flex; align-items: center; gap: 8px; font-size: 14px; padding: 8px 12px; background: rgba(255,255,255,.03); border-radius: 8px; cursor: pointer; user-select: none; }
-  .check-item input[type=checkbox] { accent-color: var(--accent); width: 16px; height: 16px; }
-  .check-item.checked { opacity: 0.5; text-decoration: line-through; }
+  /* Footer */
+  footer {
+    text-align: center; padding: 20px; color: #475569; font-size: 12px;
+    border-top: 1px solid #1e293b; margin-top: 20px;
+  }
+  footer a { color: #3b82f6; text-decoration: none; }
 
-  /* Notes section */
-  .note-link { display:block; padding: 10px 14px; background: rgba(255,255,255,.02); border-radius:8px; margin-bottom:8px; text-decoration:none; color:var(--text); font-size:14px; border:1px solid transparent; transition:.2s; }
-  .note-link:hover { border-color: var(--accent2); background: rgba(59,130,246,.06); }
-  .note-link .note-title { font-weight:600; }
-  .note-link .note-url { color: var(--text2); font-size:12px; word-break:break-all;}
-
-  /* Food */
-  .food-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
-  .food-item { text-align: center; padding: 16px 10px; background: rgba(255,255,255,.02); border-radius: 10px; border: 1px dashed var(--border); }
-  .food-icon { font-size: 28px; margin-bottom: 6px; }
-  .food-name { font-weight: 700; font-size: 14px; }
-  .food-city { color: var(--text2); font-size: 12px; margin-top: 2px; }
-
-  /* Raw data */
-  .raw-data { max-height: 400px; overflow-y: auto; background: #0c1222; border-radius: 10px; padding: 16px; font-family: 'Menlo', monospace; font-size: 12.5px; color: #9ca3af; white-space: pre-wrap; word-break: break-all; line-height: 1.6; border: 1px solid var(--border); }
-
-  .section-title { font-size: 20px; font-weight: 800; margin: 35px 0 18px; display: flex; align-items: center; gap: 10px; }
-  .section-title .line { flex: 1; height: 1px; background: var(--border); }
-
-  footer { text-align: center; padding: 30px; color: var(--text2); font-size: 13px; margin-top: 40px; border-top: 1px solid var(--border); }
-
-  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.6;} }
-
-  .tabs { display: flex; gap: 0; margin-bottom: 20px; background: var(--card); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
-  .tab { padding: 12px 24px; cursor: pointer; font-size: 14px; font-weight: 600; color: var(--text2); border: none; background: none; transition: .2s; flex: 1; text-align: center; }
-  .tab.active { background: var(--accent); color: #000; }
-  .tab:hover:not(.active) { background: rgba(255,255,255,.05); color: var(--text); }
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
-
-  @media (max-width: 768px) {
-    body { padding: 10px; }
-    .hero h1 { font-size: 22px; }
-    .grid { grid-template-columns: 1fr; }
-    .tabs { flex-direction: column; }
+  @media(max-width:768px) {
+    body { padding: 12px; } .hero h1 { font-size: 20px; }
+    .note-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
-<!-- Hero -->
 <div class="hero">
-  <h1>🚗 塔城 → <span>伊宁</span> · 6天自驾攻略</h1>
-  <div class="subtitle">2026年4月30日 — 5月6日 ｜ 小红书实时数据聚合报告</div>
+  <h1>🚗 <span>塔城 → 伊宁</span> 自驾攻略</h1>
+  <p class="subtitle">小红书搜索结果聚合 · 实时数据 · 一键跳转查看原文</p>
   <div class="meta">
-    <span class="tag">📅 数据更新：2026.4.23</span>
-    <span class="tag badge-new">⚠️ 夏塔/那拉提已关闭</span>
-    <span class="tag">📍 G219 + 精伊牧道</span>
-    <span class="tag">🔥 来源：小红书搜索</span>
+    <span class="tag">📅 抓取时间: 2026/4/25 12:53:00</span>
+    <span class="tag">🔍 关键词: "塔城 伊宁 自驾 路线"</span>
+    <span class="tag">📝 共 15 篇笔记</span>
+    <span class="tag" style="animation:pulse 2s infinite;color:#ef4444;border-color:rgba(239,68,68,.3)">🔴 最新数据</span>
   </div>
 </div>
 
-<!-- Tabs -->
-<div class="tabs">
-  <button class="tab active" onclick="switchTab('guide')">🗺️ 攻略正文</button>
-  <button class="tab" onclick="switchTab('search')">🔍 搜索结果 (15条)</button>
-  <button class="tab" onclick="switchTab('raw')">📄 原始数据</button>
+<!-- 统计概览 -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">15</div><div class="stat-label">笔记总数</div></div>
+  <div class="stat-item"><div class="stat-num">5</div><div class="stat-label">热门笔记 (100+赞)</div></div>
+  <div class="stat-item"><div class="stat-num">1970</div><div class="stat-label">总获赞数</div></div>
+  <div class="stat-item"><div class="stat-num">131</div><div class="stat-label">平均赞数</div></div>
 </div>
 
-<!-- Panel: Guide -->
-<div id="panel-guide" class="tab-panel active">
+<!-- 笔记列表 -->
+<h2 style="font-size:18px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
+  📍 笔记列表 (按热度排序)
+  <span style="flex:1;height:1px;background:#1e293b"></span>
+</h2>
 
-<!-- 景区状态 -->
-<div class="section-title"><span>⚠️ 景区关闭 / 避坑情报</span><span class="line"></span></div>
-<div class="grid">
-  <div class="card">
-    <div class="card-title"><span class="icon">🔴</span> 已关闭 / 近期不开</div>
-    <table>
-      <tr><th style="width:100px">景区</th><th>状态</th><th>来源</th></tr>
-      <tr><td><strong>夏塔古道</strong></td><td><span class="status-closed">❌ 关闭，近期不开</span></td><td style="color:var(--text2);font-size:12px">4.22确认 (105赞)</td></tr>
-      <tr><td><strong>那拉提草原</strong></td><td><span class="status-closed">❌ 4月别跑空</span></td><td style="color:var(--text2);font-size:12px">2天前</td></tr>
-      <tr><td><strong>托乎拉苏草原</strong></td><td><span class="status-closed">❌ 未开放</span></td><td style="color:var(--text2);font-size:12px">4.6确认</td></tr>
-      <tr><td><strong>独库公路</strong></td><td><span class="status-closed">⚠️ 五一未通车</span></td><td style="color:var(--text2);font-size:12px">一般6月中后</td></tr>
-    </table>
-  </div>
-
-  <div class="card">
-    <div class="card-title"><span class="icon">🟡</span> 需谨慎 / 有争议</div>
-    <table>
-      <tr><th style="width:100px">景区</th><th>问题</th><th>建议</th></tr>
-      <tr><td><strong>库尔德宁</strong></td><td>推荐 vs 避雷两极分化</td><td style="color:#86efac;font-size:13px">可去但降预期</td></tr>
-      <tr><td><strong>恰西</strong></td><td>"和渣男一样冷暴力"</td><td style="color:#fde047;font-size:13px">备选，看天气</td></tr>
-      <tr><td><strong>喀拉峻</strong></td><td>4月底半绿半黄</td><td style="color:#fde047;font-size:13px">5月中下旬更佳</td></tr>
-    </table>
-  </div>
-
-  <div class="card">
-    <div class="card-title"><span class="icon">🟢</span> 推荐去的（五一状态好）</div>
-    <table>
-      <tr><th style="width:100px">景区</th><th>说明</th></tr>
-      <tr><td><strong>赛里木湖</strong></td><td>✅ 全年可玩，五一可能有残冰，景色震撼</td></tr>
-      <tr><td><strong>果子沟大桥</strong></td><td>✅ 沿途景观免费打卡</td></tr>
-      <tr><td><strong>特克斯八卦城</strong></td><td>✅ 城市景点不受季节影响</td></tr>
-      <tr><td><strong>喀赞其民俗村</strong></td><td>✅ 伊宁市内蓝色房子街区</td></tr>
-    </table>
-  </div>
-</div>
-
-<!-- 路线规划 -->
-<div class="section-title"><span>🗺️ 推荐路线方案</span><span class="line"></span></div>
-
-<div class="card">
-  <div class="card-title"><span class="icon">⭐</span> 方案A：G219 + 精伊牧道线（风景绝美，SUV优先）</div>
-  
-  <div class="day-card">
-    <div class="day-header">
-      <div><span class="day-num">1</span>&nbsp;<span class="day-title">4/30 塔城 → 裕民县 → 托里</span></div>
-      <span class="day-km">~200km</span>
+<div class="note-grid">
+    <div class="note-card">
+      <div class="note-header">
+        <span class="note-rank">#1</span>
+        <span class="note-title">新建伊犁环线|自驾游攻略（亲测，纯干货）💪半颗酒栗子</span>
+        <span class="badge-hot">热门</span>
+      </div>
+      <div class="note-meta">
+        <span class="note-likes">❤️ 982 赞</span>
+        <a href="https://www.xiaohongshu.com/explore/674bd0a0000000000703a4b8" target="_blank" class="note-link">🔗 小红书查看原文 →</a>
+      </div>
+      <div class="note-tags"><span class="tag-hot">🔥</span><span class="tag-search">塔城·伊宁·自驾</span></div>
     </div>
-    <ul class="day-body">
-      <li>途经 G219 国道（"最美边境公路"），巴尔鲁克山风景</li>
-      <li>裕民县可逛塔城风干肉店、俄罗斯族风情</li>
-      <li>宿 托里县 / 额敏县</li>
-    </ul>
-  </div>
-
-  <div class="day-card">
-    <div class="day-header">
-      <div><span class="day-num">2</span>&nbsp;<span class="day-title">5/1 托里 → 精河 → 精伊牧道入口</span></div>
-      <span class="day-km">~180km</span>
+    <div class="note-card">
+      <div class="note-header">
+        <span class="note-rank">#2</span>
+        <span class="note-title">新疆旅游图漫游轻行04-</span>
+        <span class="badge-hot">热门</span>
+      </div>
+      <div class="note-meta">
+        <span class="note-likes">❤️ 285 赞</span>
+        <a href="https://www.xiaohongshu.com/explore/69d31ae6000000002102dd24" target="_blank" class="note-link">🔗 小红书查看原文 →</a>
+      </div>
+      <div class="note-tags"><span class="tag-hot">🔥</span><span class="tag-search">塔城·伊宁·自驾</span></div>
     </div>
-    <ul class="day-body">
-      <li>精河县午餐 — 精河凉皮必吃！全疆有名</li>
-      <li>下午尝试进入精伊牧道（<strong>当天查通行状态</strong>）</li>
-      <li>⚠️ 非铺装路面，仅 SUV/越野车可通行</li>
-      <li>宿 精河县城 或 牧道附近（视路况）</li>
-    </ul>
-  </div>
-
-  <div class="day-card">
-    <div class="day-header">
-      <div><span class="day-num">3</span>&nbsp;<span class="day-title">5/2 精伊牧道穿越 → 赛里木湖</span></div>
-      <span class="day-km">~150~250km</span>
+    <div class="note-card">
+      <div class="note-header">
+        <span class="note-rank">#3</span>
+        <span class="note-title">塔城❗️新疆边陲小城的保姆级自驾游玩攻略我在武汉拔寨又起营</span>
+        <span class="badge-hot">热门</span>
+      </div>
+      <div class="note-meta">
+        <span class="note-likes">❤️ 166 赞</span>
+        <a href="https://www.xiaohongshu.com/explore/687319670000000022033275" target="_blank" class="note-link">🔗 小红书查看原文 →</a>
+      </div>
+      <div class="note-tags"><span class="tag-hot">🔥</span><span class="tag-search">塔城·伊宁·自驾</span></div>
     </div>
-    <ul class="day-body">
-      <li>如果精伊牧道不通：走精河 → G30高速 → 赛里木湖</li>
-      <li>赛里木湖环湖游玩，果子沟观景台拍照</li>
-      <li>💡 日落时分的赛里木湖绝美</li>
-      <li>宿 赛里木湖景区门口 / 清水河镇</li>
-    </ul>
-  </div>
-
-  <div class="day-card">
-    <div class="day-header">
-      <div><span class="day-num">4</span>&nbsp;<span class="day-title">5/3 赛里木湖 → 果子沟 → 特克斯</span></div>
-      <span class="day-km">~120km</span>
+    <div class="note-card">
+      <div class="note-header">
+        <span class="note-rank">#4</span>
+        <span class="note-title">新疆旅游，一张图走新疆疆小桃新疆漫游记</span>
+        <span class="badge-hot">热门</span>
+      </div>
+      <div class="note-meta">
+        <span class="note-likes">❤️ 134 赞</span>
+        <a href="https://www.xiaohongshu.com/explore/68c15775000000001c035165" target="_blank" class="note-link">🔗 小红书查看原文 →</a>
+      </div>
+      <div class="note-tags"><span class="tag-hot">🔥</span><span class="tag-search">塔城·伊宁·自驾</span></div>
     </div>
-    <ul class="day-body">
-      <li>上午果子沟大桥多个观景台打卡</li>
-      <li>下午到特克斯八卦城（整个城市就是八卦布局！）</li>
-      <li>特克斯夜市吃羊排揪片子</li>
-      <li>宿 特克斯县</li>
-    </ul>
-  </div>
-
-  <div class="day-card">
-    <div class="day-header">
-      <div><span class="day-num">5</span>&nbsp;<span class="day-title">5/4 特克斯 → 库尔德宁 → 新源</span></div>
-      <span class="day-km">~100km</span>
+    <div class="note-card">
+      <div class="note-header">
+        <span class="note-rank">#5</span>
+        <span class="note-title">新疆全景旅游地图疆旅出行领队TRAVEL YOU.04-</span>
+        <span class="badge-hot">热门</span>
+      </div>
+      <div class="note-meta">
+        <span class="note-likes">❤️ 100 赞</span>
+        <a href="https://www.xiaohongshu.com/explore/69d32637000000002003808b" target="_blank" class="note-link">🔗 小红书查看原文 →</a>
+      </div>
+      <div class="note-tags"><span class="tag-hot">🔥</span><span class="tag-search">塔城·伊宁·自驾</span></div>
     </div>
-    <ul class="day-body">
-      <li>早上查<strong>库尔德宁官方开园公告</strong></li>
-      <li>开了就去（半天够）；没开直接去新源</li>
-      <li>替代：那拉提镇周边野景探索</li>
-      <li>宿 新源县 / 那拉提镇</li>
-    </ul>
-  </div>
-
-  <div class="day-card">
-    <div class="day-header">
-      <div><span class="day-num">6</span>&nbsp;<span class="day-title">5/6 新源 → 伊宁市</span></div>
-      <span class="day-km">~80km</span>
+    <div class="note-card">
+      <div class="note-header">
+        <span class="note-rank">#6</span>
+        <span class="note-title">塔城~精伊牧道~伊犁，自驾攻略新疆合易</span>
+        
+      </div>
+      <div class="note-meta">
+        <span class="note-likes">❤️ 90 赞</span>
+        <a href="https://www.xiaohongshu.com/explore/662b53a30000000003022cfb" target="_blank" class="note-link">🔗 小红书查看原文 →</a>
+      </div>
+      <div class="note-tags"><span class="tag-hot">⭐</span><span class="tag-search">塔城·伊宁·自驾</span></div>
     </div>
-    <ul class="day-body">
-      <li>喀赞其民俗村（蓝房子 + 伊宁冰淇淋）</li>
-      <li>手抓饭、面肺子、卡瓦斯</li>
-      <li>根据返程安排决定是否多住一晚</li>
-    </ul>
-  </div>
+    <div class="note-card">
+      <div class="note-header">
+        <span class="note-rank">#7</span>
+        <span class="note-title">北疆自驾10天总结记录-2麓山护林员</span>
+        
+      </div>
+      <div class="note-meta">
+        <span class="note-likes">❤️ 82 赞</span>
+        <a href="https://www.xiaohongshu.com/explore/683f02dd0000000020029903" target="_blank" class="note-link">🔗 小红书查看原文 →</a>
+      </div>
+      <div class="note-tags"><span class="tag-hot">⭐</span><span class="tag-search">塔城·伊宁·自驾</span></div>
+    </div>
+    <div class="note-card">
+      <div class="note-header">
+        <span class="note-rank">#8</span>
+        <span class="note-title">新疆伊犁私藏“猪猪环线”｜9天8晚自驾攻略.H</span>
+        
+      </div>
+      <div class="note-meta">
+        <span class="note-likes">❤️ 54 赞</span>
+        <a href="https://www.xiaohongshu.com/explore/6831d572000000002001de95" target="_blank" class="note-link">🔗 小红书查看原文 →</a>
+      </div>
+      <div class="note-tags"><span class="tag-hot">⭐</span><span class="tag-search">塔城·伊宁·自驾</span></div>
+    </div>
+    <div class="note-card">
+      <div class="note-header">
+        <span class="note-rank">#9</span>
+        <span class="note-title">五月中下旬 伊宁环线自驾路线听劝！Judyyyy04-</span>
+        
+      </div>
+      <div class="note-meta">
+        <span class="note-likes">❤️ 43 赞</span>
+        <a href="https://www.xiaohongshu.com/explore/69dba21900000000230112cf" target="_blank" class="note-link">🔗 小红书查看原文 →</a>
+      </div>
+      <div class="note-tags"><span class="tag-search">塔城·伊宁·自驾</span></div>
+    </div>
+    <div class="note-card">
+      <div class="note-header">
+        <span class="note-rank">#10</span>
+        <span class="note-title">🍀</span>
+        
+      </div>
+      <div class="note-meta">
+        <span class="note-likes">❤️ 15 赞</span>
+        <a href="https://www.xiaohongshu.com/explore/6645526e000000001e024894" target="_blank" class="note-link">🔗 小红书查看原文 →</a>
+      </div>
+      <div class="note-tags"><span class="tag-search">塔城·伊宁·自驾</span></div>
+    </div>
+    <div class="note-card">
+      <div class="note-header">
+        <span class="note-rank">#11</span>
+        <span class="note-title">五一新疆伊犁｜手绘保姆级环线攻略卿卿的新疆旅游04-</span>
+        
+      </div>
+      <div class="note-meta">
+        <span class="note-likes">❤️ 11 赞</span>
+        <a href="https://www.xiaohongshu.com/explore/69df48d70000000021013cf5" target="_blank" class="note-link">🔗 小红书查看原文 →</a>
+      </div>
+      <div class="note-tags"><span class="tag-search">塔城·伊宁·自驾</span></div>
+    </div>
+    <div class="note-card">
+      <div class="note-header">
+        <span class="note-rank">#12</span>
+        <span class="note-title">豆包给的4月底和五一期间伊犁小环线行程！溜达在海边6天前</span>
+        
+      </div>
+      <div class="note-meta">
+        <span class="note-likes">❤️ 5 赞</span>
+        <a href="https://www.xiaohongshu.com/explore/69e36648000000001a036e12" target="_blank" class="note-link">🔗 小红书查看原文 →</a>
+      </div>
+      <div class="note-tags"><span class="tag-search">塔城·伊宁·自驾</span></div>
+    </div>
+    <div class="note-card">
+      <div class="note-header">
+        <span class="note-rank">#13</span>
+        <span class="note-title">两人一车，五一期间新疆自驾行程安排</span>
+        
+      </div>
+      <div class="note-meta">
+        <span class="note-likes">❤️ 1 赞</span>
+        <a href="https://www.xiaohongshu.com/explore/69e4d094000000001a0224f6" target="_blank" class="note-link">🔗 小红书查看原文 →</a>
+      </div>
+      <div class="note-tags"><span class="tag-search">塔城·伊宁·自驾</span></div>
+    </div>
+    <div class="note-card">
+      <div class="note-header">
+        <span class="note-rank">#14</span>
+        <span class="note-title">G219塔城到伊犁猜情寻</span>
+        
+      </div>
+      <div class="note-meta">
+        <span class="note-likes">❤️ 1 赞</span>
+        <a href="https://www.xiaohongshu.com/explore/6892e536000000002501cedb" target="_blank" class="note-link">🔗 小红书查看原文 →</a>
+      </div>
+      <div class="note-tags"><span class="tag-search">塔城·伊宁·自驾</span></div>
+    </div>
+    <div class="note-card">
+      <div class="note-header">
+        <span class="note-rank">#15</span>
+        <span class="note-title">(待查看)</span>
+        
+      </div>
+      <div class="note-meta">
+        <span class="note-likes">❤️ 1 赞</span>
+        <a href="https://www.xiaohongshu.com/explore/69e46106000000002003822f" target="_blank" class="note-link">🔗 小红书查看原文 →</a>
+      </div>
+      <div class="note-tags"><span class="tag-search">塔城·伊宁·自驾</span></div>
+    </div>
 </div>
 
-<div class="tip-box" style="margin-top: 20px;">
-  <h4>🔄 方案B：保守高速线（不想走烂路）</h4>
-  <p style="color:var(--text2);font-size:13.5px;">塔城 → 克拉玛依(~220) → 精河(~180) → 赛里木湖(~150) → 特克斯(~120) → 新源(~100) → 伊宁(~80)<br>
-  经世界魔鬼城、艾比湖、怪石林等，全程铺装路，轿车无压力。</p>
+<!-- 使用提示 -->
+<div class="tips-box">
+  <h3>💡 使用说明</h3>
+  <ul>
+    <li>以上笔记来自小红书搜索"<strong>塔城 伊宁 自驾 路线</strong>"的最新结果，按<strong>点赞数从高到低排序</strong></li>
+    <li>点击每篇笔记下方的 <strong>🔗 小红书查看原文</strong> 可直接跳转到小红书阅读完整内容</li>
+    <li>部分笔记可能需要<strong>登录小红书账号</strong>才能查看详情</li>
+    <li>带 <strong>🔥 热门</strong> 标签的是高赞优质笔记，推荐优先阅读</li>
+    <li><strong>塔城~精伊牧道~伊犁</strong>(90赞) 和 <strong>新疆边陲小城保姆级攻略</strong>(166赞) 与本次行程最相关</li>
+    <li><strong>伊犁环线自驾攻略</strong>(982赞) 是全网最火的北疆自驾路线参考</li>
+  </ul>
 </div>
-
-<!-- Tips -->
-<div class="section-title"><span>💡 关键建议 & 避坑清单</span><span class="line"></span></div>
-<div class="grid">
-  <div class="card">
-    <div class="card-title"><span class="icon">🚙</span> 自驾注意事项</div>
-    <ul style="padding-left:18px;color:var(--text2);font-size:13.5px;">
-      <li style="margin-bottom:6px;"><strong style="color:var(--accent)">精伊牧道</strong>：出发前在「新疆交警」公众号或当地检查站确认当日通行；必须 SUV/越野车</li>
-      <li style="margin-bottom:6px;"><strong style="color:var(--accent)">独库公路</strong>：五一肯定没开！不要纳入计划</li>
-      <li style="margin-bottom:6px;"><strong style="color:var(--accent)">加油</strong>：G219 加油站间距大，见站就加满。精伊牧道无加油站，需满油进入</li>
-      <li><strong style="color:var(--accent)">信号</strong>：山区信号差，提前下载离线地图（奥维互动地图）</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <div class="card-title"><span class="icon">👕</span> 衣物 & 装备</div>
-    <ul style="padding-left:18px;color:var(--text2);font-size:13.5px;">
-      <li style="margin-bottom:6px;">早晚温差极大：<strong>0°C ~ 20°C</strong>，带羽绒服/冲锋衣</li>
-      <li style="margin-bottom:6px;">赛里木湖边风大，帽子手套必备</li>
-      <li style="margin-bottom:6px;">紫外线极强，防晒霜 + 墨镜不能少</li>
-      <li>舒适徒步鞋 + 墨镜 + 充电宝</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <div class="card-title"><span class="icon">🏨</span> 住宿提醒</div>
-    <ul style="padding-left:18px;color:var(--text2);font-size:13.5px;">
-      <li style="margin-bottom:6px;">⚠️ <strong>五一房价暴涨</strong>：平时200可能涨到800+</li>
-      <li style="margin-bottom:6px;">特克斯、新源、清水河镇房源紧张，尽早订</li>
-      <li>备选：房车露营（赛里木湖有营地）</li>
-    </ul>
-  </div>
-</div>
-
-<!-- Food -->
-<div class="section-title"><span>🍜 一路美食打卡</span><span class="line"></span></div>
-<div class="food-grid">
-  <div class="food-item"><div class="food-icon">🥩</div><div class="food-name">风干肉</div><div class="food-city">塔城</div></div>
-  <div class="food-item"><div class="food-icon">🍞</div><div class="food-name">俄罗斯列巴</div><div class="food-city">塔城</div></div>
-  <div class="food-item"><div class="food-icon">🍺</div><div class="food-name">格瓦斯</div><div class="food-city">塔城</div></div>
-  <div class="food-item"><div class="food-icon">🫓</div><div class="food-name">精河凉皮</div><div class="food-city">精河</div></div>
-  <div class="food-item"><div class="food-icon">🍖</div><div class="food-name">羊排揪片</div><div class="food-city">特克斯</div></div>
-  <div class="food-item"><div class="food-icon">🥛</div><div class="food-name">手工酸奶</div><div class="food-city">特克斯</div></div>
-  <div class="food-item"><div class="food-icon">🍨</div><div class="food-name">伊宁冰淇淋</div><div class="food-city">伊宁</div></div>
-  <div class="food-item"><div class="food-icon">🍛</div><div class="food-name">手抓饭</div><div class="food-city">伊宁</div></div>
-  <div class="food-item"><div class="food-icon">🫖</div><div class="food-name">卡瓦斯</div><div class="food-city">伊宁</div></div>
-  <div class="food-item"><div class="food-icon">🫘</div><div class="food-name">面肺子</div><div class="food-city">伊宁</div></div>
-</div>
-
-<!-- Checklist -->
-<div class="section-title"><span>✅ 出发前 CheckList（点击勾选）</span><span class="line"></span></div>
-<div class="card">
-  <div class="checklist" id="checklist">
-    <label class="check-item"><input type="checkbox" onchange="toggleCheck(this)"> 确认精伊牧道当日通行状态</label>
-    <label class="check-item"><input type="checkbox" onchange="toggleCheck(this)"> 查库尔德宁/那拉提官方开园公告</label>
-    <label class="check-item"><input type="checkbox" onchange="toggleCheck(this)"> 提前预订 Day3-Day5 住宿</label>
-    <label class="check-item"><input type="checkbox" onchange="toggleCheck(this)"> 车辆保养检查（刹车/轮胎/防冻液）</label>
-    <label class="check-item"><input type="checkbox" onchange="toggleCheck(this)"> 准备离线地图（奥维互动地图）</label>
-    <label class="check-item"><input type="checkbox" onchange="toggleCheck(this)"> 备足食物和水（牧道无补给点）</label>
-    <label class="check-item"><input type="checkbox" onchange="toggleCheck(this)"> 充电宝 + 车载充电器</label>
-    <label class="check-item"><input type="checkbox" onchange="toggleCheck(this)"> 身份件（检查站频繁）</label>
-    <label class="check-item"><input type="checkbox" onchange="toggleCheck(this)"> 羽绒服/冲锋衣（温差大）</label>
-    <label class="check-item"><input type="checkbox" onchange="toggleCheck(this)"> 防晒霜 + 墨镜</label>
-  </div>
-</div>
-
-<!-- Reference links -->
-<div class="section-title"><span>📎 参考笔记链接（小红书搜索结果）</span><span class="line"></span></div>
-<div class="card">
-  <a href="https://www.xiaohongshu.com/explore/6892e536000000002501cedb" target="_blank" class="note-link">
-    <span class="note-title">1. G219塔城到伊犁</span><span class="note-url">最匹配路线参考</span>
-  </a>
-  <a href="https://www.xiaohongshu.com/explore/662b53a30000000003022cfb" target="_blank" class="note-link">
-    <span class="note-title">2. 塔 城 ~ 精 伊 牧 道 ~ 伊 犁 ， 自驾攻略 ⭐</span><span class="note-url">90赞 — 精伊牧道核心参考</span>
-  </a>
-  <a href="https://www.xiaohongshu.com/explore/69bcd64a0000000023026694" target="_blank" class="note-link">
-    <span class="note-title">3. 劝你别盲目冲伊犁❗这份攻略救大命😭</span><span class="note-url">726赞 — 高价值避坑指南</span>
-  </a>
-  <a href="https://www.xiaohongshu.com/explore/69e4a5d3000000001a02cc51" target="_blank" class="note-link">
-    <span class="note-title">4. 伊犁六天五晚旅游攻略</span><span class="note-url">行程安排参考</span>
-  </a>
-  <a href="https://www.xiaohongshu.com/explore/68e3d4d300000000070218ed" target="_blank" class="note-link">
-    <span class="note-title">5. 新疆6天5夜伊犁小环线完美之行</span><span class="note-url">小环线经典线路</span>
-  </a>
-  <a href="https://www.xiaohongshu.com/explore/67ab71290000000029014864" target="_blank" class="note-link">
-    <span class="note-title">6. 新疆伊犁环线旅游攻略 - 自驾路线篇（上）</span><span class="note-url">详细路线图</span>
-  </a>
-  <a href="https://www.xiaohongshu.com/explore/674bd0a0000000000703a4b8" target="_blank" class="note-link">
-    <span class="note-title">7. 新疆伊犁环线｜自驾游攻略（亲测纯干货）💪</span><span class="note-url">实测经验分享</span>
-  </a>
-  <a href="https://www.xiaohongshu.com/explore/686347c80000000012017efc" target="_blank" class="note-link">
-    <span class="note-title">8. 史上最天才的旅游路线之新疆伊犁顺时针！</span><span class="note-url">顺时针环线思路</span>
-  </a>
-  <a href="https://www.xiaohongshu.com/explore/66856f72000000001c0271d0" target="_blank" class="note-link">
-    <span class="note-title">9. 新疆伊犁6天5晚保姆级旅游攻略‼️</span><span class="note-url">保姆级详细版</span>
-  </a>
-  <a href="https://www.xiaohongshu.com/explore/686bc7fe000000001202dfc2" target="_blank" class="note-link">
-    <span class="note-title">10. 新疆伊犁环线亲子自驾游超详细攻略</span><span class="note-url">亲子游版本</span>
-  </a>
-</div>
-
-</div><!-- end panel-guide -->
-
-<!-- Panel: Search Results -->
-<div id="panel-search" class="tab-panel">
-<div class="card" style="margin-bottom:20px;">
-  <div class="card-title"><span class="icon">🔍</span> 搜索关键词：「塔城到伊宁 自驾 6天 攻略」— 共 15 条结果</div>
-</div>
-
-<table>
-  <thead><tr><th>#</th><th>标题</th><th>热度线索</th></tr></thead>
-  <tbody>
-    <tr><td>1</td><td><a href="https://www.xiaohongshu.com/explore/6892e536000000002501cedb" target="_blank" style="color:var(--accent2)">G219塔城到伊犁</a></td><td>路线匹配度最高</td></tr>
-    <tr><td>2</td><td><a href="https://www.xiaohongshu.com/explore/69e4a5d3000000001a02cc51" target="_blank" style="color:var(--accent2)">伊犁六天五晚旅游攻略</a></td><td>时间完全匹配</td></tr>
-    <tr><td>3</td><td><a href="https://www.xiaohongshu.com/explore/69bcd64a0000000023026694" target="_blank" style="color:var(--accent2)">劝你别盲目冲伊犁❗这份攻略救大命😭</a></td><td>🔥 726赞 高价值避坑</td></tr>
-    <tr><td>4</td><td><a href="https://www.xiaohongshu.com/explore/68e3d4d300000000070218ed" target="_blank" style="color:var(--accent2)">新疆6天5夜伊犁小环线完美之行</a></td><td>经典小环线</td></tr>
-    <tr><td>5</td><td><a href="https://www.xiaohongshu.com/explore/6645526e000000001e024894" target="_blank" style="color:var(--accent2)">新疆自驾攻略（历史数据）</a></td><td>参考价值</td></tr>
-    <tr><td>6</td><td><a href="https://www.xiaohongshu.com/explore/67ab71290000000029014864" target="_blank" style="color:var(--accent2)">新疆伊犁环线旅游攻略-自驾路线篇（上）</a></td><td>路线详解</td></tr>
-    <tr><td>7</td><td><a href="https://www.xiaohongshu.com/explore/662b53a30000000003022cfb" target="_blank" style="color:var(--accent2)">塔城~精伊牧道~伊犁，自驾攻略</a></td><td>⭐ 精伊牧道专门攻略</td></tr>
-    <tr><td>8</td><td><a href="https://www.xiaohongshu.com/explore/683f02dd0000000020029903" target="_blank" style="color:var(--accent2)">北疆自驾10天总结记录-2</a></td><td>82赞 实战记录</td></tr>
-    <tr><td>9</td><td><a href="https://www.xiaohongshu.com/explore/686adbd9000000002400d547" target="_blank" style="color:var(--accent2)">总结版🚗新疆自驾8天顺时针伊犁环线</a></td><td>顺时针路线</td></tr>
-    <tr><td>10</td><td><a href="https://www.xiaohongshu.com/explore/674bd0a0000000000703a4b8" target="_blank" style="color:var(--accent2)">新建伊犁环线|自驾游攻略（亲测，纯干货）💪</a></td><td>亲测经验</td></tr>
-    <tr><td>11</td><td><a href="https://www.xiaohongshu.com/explore/686347c80000000012017efc" target="_blank" style="color:var(--accent2)">史上最天才的旅游路线之新疆伊犁顺时针！</a></td><td>创意路线</td></tr>
-    <tr><td>12</td><td><a href="https://www.xiaohongshu.com/explore/68f5afc8000000000700237e" target="_blank" style="color:var(--accent2)">新疆回来了，后劲太大</a></td><td>游记类</td></tr>
-    <tr><td>13</td><td><a href="https://www.xiaohongshu.com/explore/6631c3ef000000001e034e23" target="_blank" style="color:var(--accent2)">新疆旅游线路|4~6天路线推荐📍</a></td><td>多天数选择</td></tr>
-    <tr><td>14</td><td><a href="https://www.xiaohongshu.com/explore/66856f72000000001c0271d0" target="_blank" style="color:var(--accent2)">新疆伊犁6天5晚保姆级旅游攻略‼️</a></td><td>保姆级</td></tr>
-    <tr><td>15</td><td><a href="https://www.xiaohongshu.com/explore/686bc7fe000000001202dfc2" target="_blank" style="color:var(--accent2)">新疆伊犁环线亲子自驾游超详细攻略</a></td><td>亲子向</td></tr>
-  </tbody>
-</table>
-
-<div class="card" style="margin-top:20px;">
-  <div class="card-title"><span class="icon">⚠️</span> 搜索「景区关闭/避坑」热门结果</div>
-  <table>
-    <thead><tr><th>标题</th><th>发布时间</th><th>热度</th><th>关键信息</th></tr></thead>
-    <tbody>
-      <tr><td><strong>4.22 夏塔关门了，近期不开</strong></td><td>11小时前</td><td>105赞</td><td><span class="status-closed">夏塔关闭</span></td></tr>
-      <tr><td><strong>4.19新疆那拉提避坑，4月别跑空</strong></td><td>2天前</td><td>6赞</td><td><span class="status-closed">那拉提未就绪</span></td></tr>
-      <tr><td><strong>伊犁托乎拉苏草原还没开放‼别跑空啦</strong></td><td>4.6</td><td>8赞</td><td><span class="status-closed">未开放</span></td></tr>
-      <tr><td><strong>恰西就和渣男一样冷暴力</strong></td><td>3天前</td><td>14赞</td><td><span class="status-warn">体验不稳定</span></td></tr>
-      <tr><td><strong>库尔德宁景区暂时避雷吧</strong></td><td>-</td><td>79赞</td><td><span class="status-warn">两极评价</span></td></tr>
-      <tr><td><strong>独库不开没关系，伊犁自然醒自驾线路</strong></td><td>3.5</td><td>282赞</td><td>替代路线</td></tr>
-      <tr><td><strong>听劝！五一去伊犁的真心话建议😰</strong></td><td>3天前</td><td>13赞</td><td>五一专项建议</td></tr>
-      <tr><td><strong>五一假期｜恰西vs库尔德宁怎么选？</strong></td><td>4天前</td><td>5赞</td><td>二选一对比</td></tr>
-      <tr><td><strong>被太多人问的五一伊犁攻略来了！</strong></td><td>4.16</td><td>88赞</td><td>最新五一攻略</td></tr>
-    </tbody>
-  </table>
-</div>
-</div><!-- end panel-search -->
-
-<!-- Panel: Raw Data -->
-<div id="panel-raw" class="tab-panel">
-<div class="card" style="margin-bottom:20px;">
-  <div class="card-title"><span class="icon">📋</span> xhs-search-tacheng.json（结构化数据）</div>
-  <div class="raw-data">{
-  "keyword": "塔城到伊宁 自驾 6天 攻略",
-  "results": [
-    {"title":"G219塔城到伊犁","url":"https://www.xiaohongshu.com/explore/6892e536000000002501cedb"},
-    {"title":"伊犁六天五晚旅游攻略","url":"https://www.xiaohongshu.com/explore/69e4a5d3000000001a02cc51"},
-    {"title":"劝你别盲目冲伊犁❗这份攻略救大命😭","url":"https://www.xi aohongshu.com/explore/69bcd64a0000000023026694"},
-    {"title":"新疆6天5夜伊犁小环线完美之行","url":"https://www.xiaohongshu.com/explore/68e3d4d300000000070218ed"},
-    {"title":"新疆伊犁环线旅游攻略-自驾路线篇（上）","url":"https://www.xiaohongshu.com/explore/67ab71290000000029014864"},
-    {"title":"塔城~精伊牧道~伊犁，自驾攻略","url":"https://www.xiaohongshu.com/explore/662b53a30000000003022cfb"},
-    {"title":"北疆自驾10天总结记录-2","url":"https://www.xiaohongshu.com/explore/683f02dd0000000020029903"},
-    {"title":"总结版🚗新疆自驾8天顺时针伊犁环线","url":"https://www.xiaohongshu.com/explore/686adbd9000000002400d547"},
-    {"title":"新建伊犁环线|自驾游攻略（亲测，纯干货）💪","url":"https://www.xiaohongshu.com/explore/674bd0a0000000000703a4b8"},
-    {"title":"史上最天才的旅游路线之新疆伊犁顺时针！","url":"https://www.xiaohongshu.com/explore/686347c80000000012017efc"},
-    {"title":"新疆回来了，后劲太大","url":"https://www.xiaohongshu.com/explore/68f5afc8000000000700237e"},
-    {"title":"新疆旅游线路|4~6天路线推荐📍","url":"https://www.xiaohongshu.com/explore/6631c3ef000000001e034e23"},
-    {"title":"新疆伊犁6天5晚保姆级旅游攻略‼️","url":"https://www.xiaohongshu.com/explore/66856f72000000001c0271d0"},
-    {"title":"新疆伊犁环线亲子自驾游超详细攻略","url":"https://www.xiaohongshu.com/explore/686bc7fe000000001202dfc2"}
-  ]
-}</div>
-</div>
-
-<div class="card">
-  <div class="card-title"><span class="icon">📄</span> xhs-search-all-text.txt（原始页面文本）</div>
-  <div class="raw-data" style="max-height:500px;">
-=== 搜索1: 塔城到伊宁 自驾 6天 攻略 ===
-【热门笔记】
-· 劝你别盲目冲伊犁❗这份攻略救大命😭 — 柯少｜旅行在新疆 — 726赞
-· 4.19新疆那拉提避坑，4月别跑空 — 白白呀 — 2天前
-· 恰西就和渣男一样冷暴力 — 小娜宝 — 3天前 — 14赞
-· 4.22 夏塔关门了，近期不开 — 果汁果汁不要酒 — 11小时前 — 105赞
-· 乌尔乐 — 1257赞（伊犁相关高赞）
-· 伊犁托乎拉苏草原还没开放‼别跑空啦 — 歆歆的游玩日记📷 — 4.6 — 8赞
-
-【大家都在搜】
-· 伊犁景区关闭现状
-· 今天伊犁哪些景点关了
-· 伊犁旅游景区今日关闭情况
-· 目前伊犁有哪些景区关闭了
-· 伊犁所有景区都关闭了么
-· 新疆伊犁哪些景区关闭了
-· 伊犁景区关闭汇总
-
-=== 搜索2: 库尔德宁 夏塔 独库公路 五一 ===
-【热门笔记】
-· 五一新疆伊犁自驾规划 — 西风烈 — 37赞 — 3天前
-· 五一伊犁行程规划，求建议 — 史黛拉 — 71赞
-· 听劝！五一去伊犁的真心话建议😰 — 新疆领队依依 — 13赞
-· 🚗5月13天伊犁环线｜最终版💐 — 荔枝一点cc — 337赞
-· 五一假期来临｜恰西vs库尔德宁怎么选？ — 爱新疆的马赛克 — 5赞
-· 被太多人问的五一伊犁攻略来了！ — 晚安露露 — 88赞
-· 最新通知|夏塔开园时间！！！ — 新疆领队强子 — 3.26
-· 我找到了新疆库尔德宁，我私藏的小众天堂 — 将木车的新疆 — 3天前
-· 五一新疆伊犁｜手绘保姆级环线攻略 — 卿卿的新疆 — 11赞
-· 五一新疆伊犁库尔德宁非常值得来 — 四饼 — 969赞
-· 因为昭苏夏塔修路而来的大发现 — 悦行山野 — 658赞
-
-=== 搜索3: 塔城精河伊宁自驾路线 ===
-【热门笔记】
-· 7月7日精伊牧道能通行吗 — 牛顿的苹果 — 28赞
-· 五一新疆伊犁｜手绘保姆级环线攻略 — 11赞
-· 独库不开没关系，伊犁计划自然醒自驾线路 — 282赞
-· 新疆旅游图 — 漫游轻行 — 262赞
-· 精伊牧道 — 怪兽👾 — 24赞
-· 北疆自驾10天总结记录-2 — 麓山护林员 — 82赞
-· 塔城~精伊牧道~伊犁，自驾攻略 — 新疆合易 — 90赞 ⭐
-· 伊宁一票玩转整个新疆！ — xxgreta — 1648赞 🔥
-· 伊犁州详细地图版 — 你比从前更丑了 — 1341赞 🔥
-· 精河丨浓缩版"小世界"暴风吸入美景 — 新疆雪莲花国际旅行社 — 391赞
-· 伊犁环线美食推荐 — 在逃鱼丸 — 86赞
-· 探秘精河小海子 — Joey妈妈护眼 — 78赞
-· 两人一车，五一期间新疆自驾行程安排 — momo — 1赞
-· 新疆旅游|超细致的北疆环线路线图 — 钱钱 — 318赞
-· 新疆10天9晚自驾小环线真实体验 — 闪电侠😇 — 105赞
-  </div>
-</div>
-</div><!-- end panel-raw -->
 
 <footer>
-  <p>📱 数据来源：小红书搜索（Playwright CDP 抓取） ｜ 🕒 生成时间：2026年4月23日 22:00</p>
-  <p style="margin-top:6px;color:var(--border);">出行前请再次确认各景区最新官方公告 · 祝旅途愉快 🏔️</p>
+  <p>🔍 数据来源: 小红书 (xiaohongshu.com) · 抓取工具: Playwright CDP</p>
+  <p>更新时间: 2026-04-25T04:53:00.951Z · 本页由 WorkBuddy AI 自动生成</p>
+  <p style="margin-top:8px">
+    <a href="tacheng-yining-full.html">← 返回完整攻略页面 (full.html)</a>
+  </p>
 </footer>
 
-<script>
-function switchTab(tabId) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById('panel-' + tabId).classList.add('active');
-}
-function toggleCheck(el) {
-  el.parentElement.classList.toggle('checked', el.checked);
-}
-</script>
+<style>@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}</style>
 </body>
 </html>
